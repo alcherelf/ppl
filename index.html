@@ -177,6 +177,24 @@ h3 { font-size: 15px; font-weight: 600; }
 }
 .exo-detail .header .progression { background: var(--success-bg); color: var(--success); padding: 8px 12px; border-radius: 9px; font-size: 13px; font-weight: 500; margin-top: 10px; display: flex; align-items: center; gap: 6px; }
 
+.variant-replaces { font-size: 12px; color: var(--text-3); margin-top: 4px; }
+
+.exo-card .swap-btn { padding: 6px 10px; border-radius: 9px; background: var(--card-2); border: 1px solid var(--border); font-size: 15px; color: var(--text-2); cursor: pointer; flex-shrink: 0; line-height: 1; }
+.exo-card .swap-btn:active { background: var(--border-2); }
+.exo-card .swap-btn.has-variant { background: var(--accent-bg); color: var(--accent); border-color: transparent; font-weight: 600; }
+
+.swap-options { display: flex; flex-direction: column; gap: 8px; }
+.swap-option { background: var(--card); border: 1.5px solid var(--border); border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow); cursor: pointer; text-align: left; width: 100%; transition: transform 0.1s; color: var(--text); }
+.swap-option:active { transform: scale(0.99); }
+.swap-option.active { border-color: var(--accent); background: var(--accent-bg); }
+.swap-option .so-icon { font-size: 18px; width: 28px; text-align: center; flex-shrink: 0; color: var(--text-2); }
+.swap-option.active .so-icon { color: var(--accent); }
+.swap-option .so-text { flex: 1; min-width: 0; }
+.swap-option .so-text .so-name { font-size: 15px; font-weight: 500; line-height: 1.3; }
+.swap-option .so-text .so-tag { font-size: 11px; color: var(--text-3); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+.swap-option.active .so-text .so-tag { color: var(--accent); }
+.swap-option .so-check { color: var(--accent); font-size: 20px; flex-shrink: 0; }
+
 .last-time { background: var(--card-2); border-radius: 10px; padding: 10px 12px; font-size: 13px; color: var(--text-2); }
 .last-time .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-3); margin-bottom: 3px; }
 
@@ -250,84 +268,126 @@ const SESSIONS = {
     name: 'Push 1', subtitle: 'Priorité pectoraux',
     muscles: 'Pectoraux · Épaules · Triceps', type: 'push',
     heavy: [
-      { id: 'bench-flat',     name: 'Développé couché',        sets: 3, repsMin: 6,  repsMax: 8,  rest: 180 },
+      { id: 'bench-flat', name: 'Développé couché', sets: 3, repsMin: 6, repsMax: 8, rest: 180,
+        alts: ['Développé haltères', 'Presse à pectoraux (machine)', 'Développé couché Smith machine'] },
     ],
     iso: [
-      { id: 'bench-incline-1', name: 'Développé incliné',       sets: 3, repsMin: 12, repsMax: 15, rest: 90 },
-      { id: 'db-fly',          name: 'Écarté haltères',          sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
-      { id: 'ohp-1',           name: 'Développé militaire',      sets: 3, repsMin: 12, repsMax: 15, rest: 90 },
-      { id: 'skull-1',         name: 'Skull crushers',           sets: 3, repsMin: 12, repsMax: 15, rest: 60, note: 'Remplacer par triceps poulie si triceps fatigués', superset: 'lat-raises-1' },
-      { id: 'lat-raises-1',    name: 'Élévations latérales',     sets: 3, repsMin: 12, repsMax: 20, rest: 75, superset: 'skull-1' },
+      { id: 'bench-incline-1', name: 'Développé incliné', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
+        alts: ['Presse inclinée (machine)', 'Développé incliné haltères', 'Développé incliné Smith machine'] },
+      { id: 'db-fly', name: 'Écarté haltères', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+        alts: ['Pec deck (machine papillon)', 'Écarté poulie basse croisée', 'Écarté machine'] },
+      { id: 'ohp-1', name: 'Développé militaire', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
+        alts: ['Développé haltères assis', 'Presse épaules (machine)', 'Développé Smith overhead'] },
+      { id: 'skull-1', name: 'Skull crushers', sets: 3, repsMin: 12, repsMax: 15, rest: 60,
+        note: 'Remplacer par triceps poulie si triceps fatigués', superset: 'lat-raises-1',
+        alts: ['Triceps poulie corde', 'Extension triceps overhead poulie', 'Triceps poulie barre droite'] },
+      { id: 'lat-raises-1', name: 'Élévations latérales', sets: 3, repsMin: 12, repsMax: 20, rest: 75, superset: 'skull-1',
+        alts: ['Élévations latérales poulie basse (unilatéral)', 'Élévations latérales machine', 'Élévations latérales haltères incliné'] },
     ],
   },
   pull1: {
     name: 'Pull 1', subtitle: 'Priorité vertical',
     muscles: 'Dos · Biceps · Arrière épaule', type: 'pull',
     heavy: [
-      { id: 'pullup',          name: 'Tractions lestées',        sets: 3, repsMin: 6,  repsMax: 8,  rest: 180, warn: 'Remplacer par lat pulldown si <8 reps propres' },
+      { id: 'pullup', name: 'Tractions lestées', sets: 3, repsMin: 6, repsMax: 8, rest: 180,
+        warn: 'Remplacer par lat pulldown si <8 reps propres',
+        alts: ['Lat pulldown prise large', 'Lat pulldown prise neutre', 'Traction assistée machine'] },
     ],
     iso: [
-      { id: 'straight-arm',    name: 'Tirage bras tendus',       sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
-      { id: 'meadows-row',     name: 'Meadows row',              sets: 3, repsMin: 12, repsMax: 15, rest: 90 },
-      { id: 'shrugs',          name: 'Shrugs',                   sets: 3, repsMin: 6,  repsMax: 10, rest: 120, exception: 'lourd justifié — trapèzes' },
-      { id: 'curl-bar-1',      name: 'Curl barre strict',        sets: 3, repsMin: 8,  repsMax: 10, rest: 120, exception: 'lourd justifié — semi-compound' },
-      { id: 'hammer-curl',     name: 'Curl marteau',             sets: 3, repsMin: 10, repsMax: 12, rest: 75 },
-      { id: 'rear-delt-fly',   name: 'Oiseau buste penché',      sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
+      { id: 'straight-arm', name: 'Tirage bras tendus', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+        alts: ['Pullover poulie haute (corde)', 'Pullover machine', 'Pullover haltère'] },
+      { id: 'meadows-row', name: 'Meadows row', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
+        alts: ['Rowing machine convergente', 'Rowing haltère unilatéral', 'Rowing poulie basse unilatéral'] },
+      { id: 'shrugs', name: 'Shrugs', sets: 3, repsMin: 6, repsMax: 10, rest: 120,
+        exception: 'lourd justifié — trapèzes',
+        alts: ['Shrugs haltères', 'Shrugs Smith machine', 'Shrugs trap bar (barre hexagonale)'] },
+      { id: 'curl-bar-1', name: 'Curl barre strict', sets: 3, repsMin: 8, repsMax: 10, rest: 120,
+        exception: 'lourd justifié — semi-compound',
+        alts: ['Curl pupitre barre', 'Curl Larry Scott (machine)', 'Curl poulie basse barre EZ'] },
+      { id: 'hammer-curl', name: 'Curl marteau', sets: 3, repsMin: 10, repsMax: 12, rest: 75,
+        alts: ['Curl marteau poulie corde', 'Curl marteau haltères incliné', 'Curl brachial machine'] },
+      { id: 'rear-delt-fly', name: 'Oiseau buste penché', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+        alts: ['Reverse pec deck', 'Facepulls poulie haute', 'Oiseau haltères assis'] },
     ],
   },
   legs1: {
     name: 'Legs 1', subtitle: 'Priorité quadriceps',
     muscles: 'Quads · Ischio · Mollets', type: 'legs',
     heavy: [
-      { id: 'squat',           name: 'Squat',                    sets: 3, repsMin: 6,  repsMax: 8,  rest: 180 },
+      { id: 'squat', name: 'Squat', sets: 3, repsMin: 6, repsMax: 8, rest: 180,
+        alts: ['Hack squat machine', 'Presse à cuisses (profonde)', 'Squat Smith machine'] },
     ],
     iso: [
-      { id: 'lunges',          name: 'Fentes',                   sets: 3, repsMin: 12, repsMax: 15, rest: 90 },
-      { id: 'leg-extension',   name: 'Leg extension',            sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
-      { id: 'rdl',             name: 'Soulevé de terre roumain', sets: 3, repsMin: 10, repsMax: 12, rest: 120 },
-      { id: 'calves-1',        name: 'Mollets',                  sets: 3, repsMin: 12, repsMax: 15, rest: 60 },
+      { id: 'lunges', name: 'Fentes', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
+        alts: ['Split squat bulgare haltères', 'Fentes Smith machine', 'Presse à cuisses unilatérale'] },
+      { id: 'leg-extension', name: 'Leg extension', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+        alts: ['Leg extension unilatérale', 'Sissy squat (avancé)'] },
+      { id: 'rdl', name: 'Soulevé de terre roumain', sets: 3, repsMin: 10, repsMax: 12, rest: 120,
+        alts: ['Pull-through poulie basse (hip hinge câble)', 'Good morning Smith machine', 'Single-leg RDL haltère'] },
+      { id: 'calves-1', name: 'Mollets', sets: 3, repsMin: 12, repsMax: 15, rest: 60,
+        alts: ['Mollets debout machine', 'Mollets à la presse', 'Mollets assis (soléaire)'] },
     ],
   },
   push2: {
     name: 'Push 2', subtitle: 'Priorité épaules',
     muscles: 'Épaules · Pectoraux · Triceps', type: 'push',
     heavy: [
-      { id: 'ohp',             name: 'Développé militaire',      sets: 3, repsMin: 6,  repsMax: 8,  rest: 180 },
+      { id: 'ohp', name: 'Développé militaire', sets: 3, repsMin: 6, repsMax: 8, rest: 180,
+        alts: ['Développé haltères assis', 'Presse épaules (machine)', 'Développé Smith overhead'] },
     ],
     iso: [
-      { id: 'bench-flat-2',    name: 'Développé couché plat',    sets: 3, repsMin: 12, repsMax: 15, rest: 90 },
-      { id: 'bench-incline-2', name: 'Développé incliné (variation)', sets: 3, repsMin: 12, repsMax: 15, rest: 90 },
-      { id: 'cable-fly',       name: 'Écarté poulie',            sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
-      { id: 'tri-pushdown',    name: 'Triceps poulie',           sets: 3, repsMin: 15, repsMax: 20, rest: 60, superset: 'lat-raises-2' },
-      { id: 'lat-raises-2',    name: 'Élévations latérales',     sets: 3, repsMin: 15, repsMax: 20, rest: 75, superset: 'tri-pushdown' },
+      { id: 'bench-flat-2', name: 'Développé couché plat', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
+        alts: ['Développé haltères', 'Presse à pectoraux (machine)', 'Développé couché Smith machine'] },
+      { id: 'bench-incline-2', name: 'Développé incliné (variation)', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
+        alts: ['Presse inclinée (machine)', 'Développé incliné haltères', 'Développé incliné Smith machine'] },
+      { id: 'cable-fly', name: 'Écarté poulie', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+        alts: ['Pec deck (machine papillon)', 'Écarté haltères', 'Écarté machine'] },
+      { id: 'tri-pushdown', name: 'Triceps poulie', sets: 3, repsMin: 15, repsMax: 20, rest: 60, superset: 'lat-raises-2',
+        alts: ['Skull crushers', 'Extension overhead haltère', 'Triceps poulie barre droite'] },
+      { id: 'lat-raises-2', name: 'Élévations latérales', sets: 3, repsMin: 15, repsMax: 20, rest: 75, superset: 'tri-pushdown',
+        alts: ['Élévations latérales poulie basse (unilatéral)', 'Élévations latérales machine', 'Élévations latérales haltères incliné'] },
     ],
   },
   pull2: {
     name: 'Pull 2', subtitle: 'Priorité horizontal',
     muscles: 'Dos · Biceps · Arrière épaule', type: 'pull',
     heavy: [
-      { id: 'barbell-row',     name: 'Rowing barre',             sets: 3, repsMin: 6,  repsMax: 8,  rest: 180 },
+      { id: 'barbell-row', name: 'Rowing barre', sets: 3, repsMin: 6, repsMax: 8, rest: 180,
+        alts: ['T-bar row', 'Rowing machine convergente', 'Rowing poulie basse prise large'] },
     ],
     iso: [
-      { id: 'seated-row',      name: 'Tirage horizontal poulie', sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
-      { id: 'lat-pulldown',    name: 'Lat pulldown',             sets: 3, repsMin: 12, repsMax: 15, rest: 90 },
-      { id: 'shrugs-back',     name: 'Shrugs derrière le dos',   sets: 3, repsMin: 6,  repsMax: 10, rest: 120, exception: 'lourd justifié — trapèzes' },
-      { id: 'curl-bar-2',      name: 'Curl barre strict',        sets: 3, repsMin: 8,  repsMax: 10, rest: 120, exception: 'lourd justifié — semi-compound' },
-      { id: 'hammer-cable',    name: 'Curl marteau poulie',      sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
-      { id: 'facepulls',       name: 'Facepulls',                sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
+      { id: 'seated-row', name: 'Tirage horizontal poulie', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+        alts: ['Rowing machine prise neutre', 'Rowing haltère unilatéral', 'Rowing barre'] },
+      { id: 'lat-pulldown', name: 'Lat pulldown', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
+        alts: ['Traction assistée machine', 'Lat pulldown prise neutre', 'Pulldown unilatéral poulie'] },
+      { id: 'shrugs-back', name: 'Shrugs derrière le dos', sets: 3, repsMin: 6, repsMax: 10, rest: 120,
+        exception: 'lourd justifié — trapèzes',
+        alts: ['Shrugs haltères derrière le dos', 'Shrugs Smith arrière', 'Shrugs trap bar (barre hexagonale)'] },
+      { id: 'curl-bar-2', name: 'Curl barre strict', sets: 3, repsMin: 8, repsMax: 10, rest: 120,
+        exception: 'lourd justifié — semi-compound',
+        alts: ['Curl pupitre barre', 'Curl Larry Scott (machine)', 'Curl poulie basse barre EZ'] },
+      { id: 'hammer-cable', name: 'Curl marteau poulie', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+        alts: ['Curl marteau haltères', 'Curl brachial poulie basse', 'Curl reverse barre'] },
+      { id: 'facepulls', name: 'Facepulls', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+        alts: ['Reverse pec deck', 'Oiseau poulie haute (cable rear delt fly)', 'Band pull-apart'] },
     ],
   },
   legs2: {
     name: 'Legs 2', subtitle: 'Priorité ischio-jambiers & fessiers',
     muscles: 'Ischio · Fessiers · Mollets', type: 'legs',
     heavy: [
-      { id: 'hip-thrust',      name: 'Hip thrusts',              sets: 3, repsMin: 8,  repsMax: 10, rest: 180 },
+      { id: 'hip-thrust', name: 'Hip thrusts', sets: 3, repsMin: 8, repsMax: 10, rest: 180,
+        alts: ['Hip thrust machine', 'Hip thrust Smith machine', 'Hip thrust unilatéral haltère'] },
     ],
     iso: [
-      { id: 'leg-curl',        name: 'Leg curl',                 sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
-      { id: 'leg-press',       name: 'Presse à cuisses',         sets: 3, repsMin: 15, repsMax: 20, rest: 90 },
-      { id: 'glute-kickbacks', name: 'Kickbacks fessiers',       sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
-      { id: 'calves-2',        name: 'Mollets',                  sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
+      { id: 'leg-curl', name: 'Leg curl', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+        alts: ['Leg curl assis machine', 'Leg curl debout unilatéral', 'Nordic curl avec aide'] },
+      { id: 'leg-press', name: 'Presse à cuisses', sets: 3, repsMin: 15, repsMax: 20, rest: 90,
+        alts: ['Hack squat machine', 'Squat Smith machine', 'Presse à cuisses unilatérale'] },
+      { id: 'glute-kickbacks', name: 'Kickbacks fessiers', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+        alts: ['Cable kickback (sangle cheville)', 'Glute drive (machine)', 'Single-leg hip thrust'] },
+      { id: 'calves-2', name: 'Mollets', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+        alts: ['Mollets debout machine', 'Mollets à la presse', 'Mollets assis (soléaire)'] },
     ],
   },
 };
@@ -392,12 +452,17 @@ function restFor(exo) {
   return c[exo.id] != null ? c[exo.id] : exo.rest;
 }
 
-// Find last completed instance of an exercise in history (for "last time" display)
-function lastTimeFor(exoId) {
+// Find last completed instance of an exercise in history (for "last time" display).
+// If `variant` is set, only matches sessions where the same variant was used.
+function lastTimeFor(exoId, variant) {
   const h = getHistory();
+  const wantVariant = variant || null;
   for (let i = h.length - 1; i >= 0; i--) {
     const ex = h[i].exercises && h[i].exercises[exoId];
-    if (ex && ex.sets && ex.sets.some(s => s.done)) return { date: h[i].date, sets: ex.sets.filter(s => s.done) };
+    if (!ex || !ex.sets || !ex.sets.some(s => s.done)) continue;
+    const exVariant = ex.variant || null;
+    if (exVariant !== wantVariant) continue;
+    return { date: h[i].date, sets: ex.sets.filter(s => s.done), variant: ex.variant };
   }
   return null;
 }
@@ -522,11 +587,14 @@ function ensureCurrent(sessionId) {
     cur = { sessionId, startedAt: todayISO(), exercises: exos };
     setCurrent(cur);
   }
-  // backfill last-time prefills if user hasn't typed yet
+  // backfill last-time prefills if user hasn't typed yet — scoped by variant
   for (const exo of [...SESSIONS[sessionId].heavy, ...SESSIONS[sessionId].iso]) {
-    const last = lastTimeFor(exo.id);
-    if (last && cur.exercises[exo.id]) {
-      cur.exercises[exo.id].sets.forEach((s, idx) => {
+    const state = cur.exercises[exo.id];
+    if (!state) continue;
+    const variant = state.variant || null;
+    const last = lastTimeFor(exo.id, variant);
+    if (last) {
+      state.sets.forEach((s, idx) => {
         if (s.weight === '' && !s.done) {
           const lastSet = last.sets[idx] || last.sets[last.sets.length - 1];
           if (lastSet) { s.weight = lastSet.weight; }
@@ -645,19 +713,29 @@ function viewHome() {
 
 function exoRow(sessionId, exo, block) {
   const cur = getCurrent();
+  const exState = cur && cur.exercises && cur.exercises[exo.id];
+  const variant = exState && exState.variant;
+  const effectiveName = variant || exo.name;
   const done = cur && cur.sessionId === sessionId && exerciseAllDone(cur, exo.id);
   const yt = getYoutube()[exo.id];
+  const hasAlts = exo.alts && exo.alts.length > 0;
   return el('div', { class: 'exo-card' + (done ? ' done' : ''), onclick: () => nav({ name: 'exo', sessionId, exoId: exo.id }) },
     el('div', { class: 'check' }, '✓'),
     el('div', { class: 'name' },
-      el('div', { class: 'label', html: escapeHtml(exo.name)
+      el('div', { class: 'label', html: escapeHtml(effectiveName)
         + (exo.warn ? `<span class="warn-tag">${escapeHtml(exo.warn)}</span>` : '')
         + (exo.exception ? `<span class="except-tag">exception</span>` : '')
         + (exo.superset ? `<span class="superset-tag">superset</span>` : '')
+        + (variant ? `<span class="superset-tag">↔ ${escapeHtml(exo.name)}</span>` : '')
       }),
       exo.note ? el('div', { class: 'meta' }, exo.note) : null,
     ),
     el('div', { class: 'sets-tag ' + block }, `${exo.sets} × ${exo.repsMin}-${exo.repsMax}`),
+    hasAlts ? el('button', {
+      class: 'swap-btn' + (variant ? ' has-variant' : ''),
+      title: 'Changer d\'exercice',
+      onclick: (e) => { e.stopPropagation(); nav({ name: 'swap', sessionId, exoId: exo.id }); },
+    }, '↔') : null,
     el('div', { class: 'yt' + (yt ? ' has-link' : '') }, yt ? '▶' : '○'),
   );
 }
@@ -699,7 +777,9 @@ function viewExo(sessionId, exoId) {
 
   const cur = ensureCurrent(sessionId);
   const exState = cur.exercises[exoId];
-  const last = lastTimeFor(exoId);
+  const variant = exState.variant || null;
+  const effectiveName = variant || exo.name;
+  const last = lastTimeFor(exoId, variant);
   const yt = getYoutube()[exoId];
   const restSec = restFor(exo);
   const hint = getProgressionHint(cur, exo);
@@ -715,24 +795,24 @@ function viewExo(sessionId, exoId) {
     if (s.done && (s.weight !== '' || s.reps !== '')) {
       Timer.start(restSec, exoId);
     }
-    renderExoOnly();
+    render();
   }
   function changeRest(delta) {
     const cr = getCustomRest();
-    const cur = restFor(exo);
-    const next = Math.max(15, Math.min(600, cur + delta));
+    const c = restFor(exo);
+    const next = Math.max(15, Math.min(600, c + delta));
     cr[exoId] = next;
     setCustomRest(cr);
-    renderExoOnly();
+    render();
   }
-  function setRest(val) {
-    const cr = getCustomRest();
-    cr[exoId] = Math.max(15, Math.min(600, val));
-    setCustomRest(cr);
-    renderExoOnly();
+  function setVariant(v) {
+    if (v) exState.variant = v;
+    else delete exState.variant;
+    // Reset prefilled (undone) sets so they re-fill from the new variant's history
+    exState.sets = exState.sets.map(s => s.done ? s : { weight: '', reps: '', done: false });
+    setCurrent(cur);
+    render();
   }
-
-  function renderExoOnly() { render(); }
 
   return el('div', { class: 'exo-detail' },
     el('div', { class: 'topbar' },
@@ -742,13 +822,19 @@ function viewExo(sessionId, exoId) {
         : null,
     ),
     el('div', { class: 'header' },
-      el('div', { class: 'title', html: escapeHtml(exo.name)
+      el('div', { class: 'title', html: escapeHtml(effectiveName)
         + (exo.warn ? `<span class="warn-tag">${escapeHtml(exo.warn)}</span>` : '')
         + (exo.exception ? `<span class="except-tag">${escapeHtml(exo.exception)}</span>` : '')
         + (exo.superset ? `<span class="superset-tag">superset</span>` : '')
       }),
       el('div', { class: 'target' }, 'Objectif : ', el('strong', {}, `${exo.sets} × ${exo.repsMin}-${exo.repsMax} reps`)),
+      variant ? el('div', { class: 'variant-replaces' }, '↔ Remplace ' + exo.name) : null,
       exo.note ? el('div', { class: 'note' }, exo.note) : null,
+      exo.alts && exo.alts.length > 0 ? el('button', {
+        class: 'yt-btn',
+        style: 'margin-right:6px',
+        onclick: () => nav({ name: 'swap', sessionId, exoId }),
+      }, '↔ Changer d\'exercice') : null,
       el('button', { class: 'yt-btn' + (yt ? ' has-link' : ''), onclick: () => {
         if (yt) { window.open(yt, '_blank'); }
         else {
@@ -759,7 +845,7 @@ function viewExo(sessionId, exoId) {
       hint ? el('div', { class: 'progression' }, hint) : null,
     ),
     last ? el('div', { class: 'last-time' },
-      el('div', { class: 'lbl' }, 'Dernière fois — ' + frDate(last.date)),
+      el('div', { class: 'lbl' }, 'Dernière fois — ' + frDate(last.date) + (last.variant ? ' · ' + last.variant : '')),
       last.sets.map(s => `${s.weight || '?'}kg × ${s.reps || '?'}`).join(' · '),
     ) : null,
     el('div', { class: 'sets-block' },
@@ -810,6 +896,62 @@ function viewExo(sessionId, exoId) {
   );
 }
 
+function viewSwap(sessionId, exoId) {
+  const s = SESSIONS[sessionId];
+  if (!s) return el('div', {}, 'Séance inconnue');
+  const exo = [...s.heavy, ...s.iso].find(e => e.id === exoId);
+  if (!exo) return el('div', {}, 'Exercice inconnu');
+
+  const cur = ensureCurrent(sessionId);
+  const exState = cur.exercises[exoId];
+  const current = exState.variant || null;
+
+  function choose(v) {
+    if (v) exState.variant = v;
+    else delete exState.variant;
+    // Reset undone sets so they re-fill from the new variant's history
+    exState.sets = exState.sets.map(s => s.done ? s : { weight: '', reps: '', done: false });
+    setCurrent(cur);
+    toast(v ? 'Remplacé par : ' + v : 'Exercice original rétabli');
+    nav({ name: 'session', sessionId });
+  }
+
+  return el('div', {},
+    el('div', { class: 'topbar' },
+      el('button', { class: 'back', onclick: () => nav({ name: 'session', sessionId }) }, '‹ Séance'),
+    ),
+    el('div', { class: 'session-header' },
+      el('div', { class: 'title' }, 'Remplacer un exercice'),
+      el('div', { class: 'sub' }, 'À la place de : ' + exo.name),
+    ),
+    el('div', { class: 'section-label' }, 'Choisis un exercice'),
+    el('div', { class: 'swap-options' }, [
+      el('button', {
+        class: 'swap-option' + (!current ? ' active' : ''),
+        onclick: () => choose(null),
+      },
+        el('div', { class: 'so-icon' }, '★'),
+        el('div', { class: 'so-text' },
+          el('div', { class: 'so-name' }, exo.name),
+          el('div', { class: 'so-tag' }, 'Original'),
+        ),
+        !current ? el('div', { class: 'so-check' }, '✓') : null,
+      ),
+      ...(exo.alts || []).map(alt => el('button', {
+        class: 'swap-option' + (current === alt ? ' active' : ''),
+        onclick: () => choose(alt),
+      },
+        el('div', { class: 'so-icon' }, '↔'),
+        el('div', { class: 'so-text' },
+          el('div', { class: 'so-name' }, alt),
+          el('div', { class: 'so-tag' }, 'Variante'),
+        ),
+        current === alt ? el('div', { class: 'so-check' }, '✓') : null,
+      )),
+    ]),
+  );
+}
+
 function viewLinks() {
   const all = allExercises();
   const yt = getYoutube();
@@ -856,8 +998,9 @@ function viewHistory() {
             if (!ex) return null;
             const sets = ex.sets.filter(s => s.done);
             if (sets.length === 0) return null;
+            const displayName = ex.variant ? ex.variant + ' (↔ ' + exo.name + ')' : exo.name;
             return el('div', { class: 'exo-line' },
-              el('div', { class: 'ex-name' }, exo.name),
+              el('div', { class: 'ex-name' }, displayName),
               el('div', { class: 'ex-sets' }, sets.map(s => `${s.weight}kg × ${s.reps}`).join(' · ')),
               ex.note ? el('div', { class: 'ex-sets', style: 'font-style:italic' }, '« ' + ex.note + ' »') : null,
             );
@@ -888,6 +1031,7 @@ function render() {
   switch (view.name) {
     case 'session': content = viewSession(view.sessionId); break;
     case 'exo':     content = viewExo(view.sessionId, view.exoId); break;
+    case 'swap':    content = viewSwap(view.sessionId, view.exoId); break;
     case 'links':   content = viewLinks(); break;
     case 'history': content = viewHistory(); break;
     default:        content = viewHome();
