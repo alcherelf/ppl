@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="PPL">
+<meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%23111'/%3E%3Ctext x='90' y='120' font-family='-apple-system,system-ui,sans-serif' font-size='66' font-weight='800' text-anchor='middle' fill='%23fff'%3EPPL%3C/text%3E%3C/svg%3E">
+<title>PPL Programme</title>
+<style>
+:root {
+  --bg: #fafafa;
+  --card: #ffffff;
+  --card-2: #f4f4f4;
+  --text: #1a1a1a;
+  --text-2: #6b6b6b;
+  --text-3: #9b9b9b;
+  --border: #e8e8e8;
+  --border-2: #d0d0d0;
+  --push-bg: #FAECE7;
+  --push-text: #712B13;
+  --pull-bg: #E6F1FB;
+  --pull-text: #0C447C;
+  --legs-bg: #EAF3DE;
+  --legs-text: #27500A;
+  --rest-bg: #ececec;
+  --rest-text: #6b6b6b;
+  --heavy: #993C1D;
+  --iso: #185FA5;
+  --warn-bg: #fff4cf;
+  --warn-text: #6b5a00;
+  --danger-bg: #ffe5e5;
+  --danger-text: #a00000;
+  --success: #1f7a3a;
+  --success-bg: #e0f2e6;
+  --accent: #007aff;
+  --accent-bg: rgba(0,122,255,0.1);
+  --shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0a0a0a;
+    --card: #1a1a1a;
+    --card-2: #232323;
+    --text: #f5f5f5;
+    --text-2: #a0a0a0;
+    --text-3: #707070;
+    --border: #2a2a2a;
+    --border-2: #3a3a3a;
+    --push-bg: #3a1a10;
+    --push-text: #f5b8a5;
+    --pull-bg: #0e2a45;
+    --pull-text: #a8cdee;
+    --legs-bg: #1a3010;
+    --legs-text: #b6dba0;
+    --rest-bg: #232323;
+    --rest-text: #a0a0a0;
+    --heavy: #ff8862;
+    --iso: #5fa8e8;
+    --warn-bg: #3a3010;
+    --warn-text: #ffd860;
+    --danger-bg: #3a1010;
+    --danger-text: #ff8080;
+    --success: #4caf50;
+    --success-bg: #133a1d;
+    --accent: #0a84ff;
+    --accent-bg: rgba(10,132,255,0.18);
+    --shadow: none;
+  }
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; -webkit-font-smoothing: antialiased; overscroll-behavior-y: contain; }
+body { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); min-height: 100vh; }
+#app { max-width: 640px; margin: 0 auto; padding: 14px 16px 80px; }
+button, input, textarea, select { font-family: inherit; font-size: 16px; color: var(--text); }
+button { background: none; border: none; cursor: pointer; }
+input, textarea, select { background: var(--card-2); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; outline: none; width: 100%; }
+input:focus, textarea:focus { border-color: var(--accent); }
+input[type="number"] { -moz-appearance: textfield; }
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 18px; font-weight: 600; }
+h3 { font-size: 15px; font-weight: 600; }
+
+.topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.topbar .back { display: flex; align-items: center; gap: 4px; color: var(--accent); font-size: 17px; padding: 6px 6px 6px 0; margin-left: -6px; }
+.topbar .right { display: flex; gap: 6px; }
+.icon-btn { padding: 8px 10px; border-radius: 10px; background: var(--card); border: 1px solid var(--border); font-size: 14px; color: var(--text-2); }
+.icon-btn.primary { background: var(--accent-bg); color: var(--accent); border-color: transparent; }
+
+.today { background: var(--card); border-radius: 14px; padding: 14px 16px; margin-bottom: 14px; border: 1px solid var(--border); box-shadow: var(--shadow); }
+.today .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3); margin-bottom: 4px; }
+.today .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.today .row > .info { flex: 1; min-width: 0; }
+.today .row > .info .title { font-size: 18px; font-weight: 600; }
+.today .row > .info .sub { font-size: 13px; color: var(--text-2); margin-top: 1px; }
+.today .row > button { background: var(--accent); color: white; padding: 10px 14px; border-radius: 10px; font-weight: 600; white-space: nowrap; }
+
+.cycle-bar { display: grid; grid-template-columns: repeat(8, 1fr); gap: 5px; margin-bottom: 18px; }
+.cycle-day { text-align: center; padding: 8px 2px; border-radius: 9px; border: 1.5px solid transparent; cursor: pointer; transition: transform 0.1s; }
+.cycle-day:active { transform: scale(0.94); }
+.cycle-day.active { border-color: var(--text); }
+.cycle-day .day-num { font-size: 9px; color: var(--text-3); }
+.cycle-day .day-name { font-size: 10px; font-weight: 600; margin-top: 2px; line-height: 1.1; }
+.cycle-day.done { opacity: 0.55; }
+.cycle-day.done::after { content: " ✓"; }
+.day-push { background: var(--push-bg); color: var(--push-text); }
+.day-pull { background: var(--pull-bg); color: var(--pull-text); }
+.day-legs { background: var(--legs-bg); color: var(--legs-text); }
+.day-rest { background: var(--rest-bg); color: var(--rest-text); }
+
+.section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; color: var(--text-3); text-transform: uppercase; margin: 16px 4px 8px; }
+
+.session-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow); cursor: pointer; transition: transform 0.1s; }
+.session-card:active { transform: scale(0.99); }
+.session-card .badge { font-size: 11px; font-weight: 600; padding: 4px 9px; border-radius: 7px; flex-shrink: 0; }
+.badge-push { background: var(--push-bg); color: var(--push-text); }
+.badge-pull { background: var(--pull-bg); color: var(--pull-text); }
+.badge-legs { background: var(--legs-bg); color: var(--legs-text); }
+.session-card .info { flex: 1; min-width: 0; }
+.session-card .info .title { font-size: 14px; font-weight: 600; }
+.session-card .info .sub { font-size: 12px; color: var(--text-2); margin-top: 1px; }
+.session-card .chev { color: var(--text-3); font-size: 18px; }
+
+.legend { display: flex; gap: 14px; flex-wrap: wrap; margin: -4px 4px 10px; font-size: 11px; color: var(--text-2); }
+.legend-item { display: flex; align-items: center; gap: 5px; }
+.legend-dot { width: 8px; height: 8px; border-radius: 2px; }
+
+.session-header { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; margin-bottom: 14px; box-shadow: var(--shadow); }
+.session-header .row { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.session-header .title { font-size: 18px; font-weight: 600; }
+.session-header .sub { font-size: 13px; color: var(--text-2); }
+
+.block-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin: 14px 4px 8px; display: flex; align-items: center; gap: 6px; }
+.block-label.heavy { color: var(--heavy); }
+.block-label.iso { color: var(--iso); }
+.block-label .dot { width: 7px; height: 7px; border-radius: 50%; }
+.block-label.heavy .dot { background: var(--heavy); }
+.block-label.iso .dot { background: var(--iso); }
+
+.exo-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow); cursor: pointer; transition: transform 0.1s; }
+.exo-card:active { transform: scale(0.99); }
+.exo-card.done { border-color: var(--success); background: var(--success-bg); }
+.exo-card .check { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border-2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 13px; color: transparent; }
+.exo-card.done .check { background: var(--success); border-color: var(--success); color: white; }
+.exo-card .name { flex: 1; min-width: 0; }
+.exo-card .name .label { font-size: 14px; font-weight: 500; line-height: 1.3; }
+.exo-card .name .meta { font-size: 11px; color: var(--text-2); margin-top: 2px; }
+.exo-card .sets-tag { font-size: 12px; font-weight: 600; padding: 4px 8px; border-radius: 6px; white-space: nowrap; }
+.sets-tag.heavy { color: var(--heavy); background: color-mix(in srgb, var(--heavy) 12%, transparent); }
+.sets-tag.iso { color: var(--iso); background: color-mix(in srgb, var(--iso) 12%, transparent); }
+.exo-card .yt { font-size: 16px; color: var(--text-3); padding: 4px; }
+.exo-card .yt.has-link { color: #ff0000; }
+@media (prefers-color-scheme: dark) {
+  .exo-card .yt.has-link { color: #ff5050; }
+}
+
+.warn-tag { font-size: 10px; background: var(--warn-bg); color: var(--warn-text); padding: 2px 6px; border-radius: 5px; margin-left: 4px; font-weight: 600; }
+.skip-tag { font-size: 10px; background: var(--danger-bg); color: var(--danger-text); padding: 2px 6px; border-radius: 5px; margin-left: 4px; font-weight: 600; }
+.except-tag { font-size: 10px; background: var(--accent-bg); color: var(--accent); padding: 2px 6px; border-radius: 5px; margin-left: 4px; font-weight: 600; }
+.superset-tag { font-size: 10px; background: var(--card-2); color: var(--text-2); padding: 2px 6px; border-radius: 5px; margin-left: 4px; font-weight: 600; border: 1px solid var(--border); }
+
+.exo-detail { display: flex; flex-direction: column; gap: 14px; }
+.exo-detail .header { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; box-shadow: var(--shadow); }
+.exo-detail .header .title { font-size: 19px; font-weight: 600; margin-bottom: 4px; }
+.exo-detail .header .target { font-size: 14px; color: var(--text-2); }
+.exo-detail .header .target strong { color: var(--text); }
+.exo-detail .header .note { font-size: 12px; color: var(--warn-text); background: var(--warn-bg); padding: 6px 10px; border-radius: 8px; margin-top: 8px; }
+.exo-detail .header .yt-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--card-2); padding: 8px 12px; border-radius: 9px; font-size: 13px; color: var(--text-2); margin-top: 10px; border: 1px solid var(--border); }
+.exo-detail .header .yt-btn.has-link { background: #ffe5e5; color: #c00; border-color: transparent; }
+@media (prefers-color-scheme: dark) {
+  .exo-detail .header .yt-btn.has-link { background: rgba(255,80,80,0.15); color: #ff7070; }
+}
+.exo-detail .header .progression { background: var(--success-bg); color: var(--success); padding: 8px 12px; border-radius: 9px; font-size: 13px; font-weight: 500; margin-top: 10px; display: flex; align-items: center; gap: 6px; }
+
+.last-time { background: var(--card-2); border-radius: 10px; padding: 10px 12px; font-size: 13px; color: var(--text-2); }
+.last-time .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-3); margin-bottom: 3px; }
+
+.sets-block { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; box-shadow: var(--shadow); }
+.set-row { display: grid; grid-template-columns: 32px 1fr 1fr 50px; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); }
+.set-row:last-child { border-bottom: none; }
+.set-row .num { font-size: 13px; color: var(--text-3); font-weight: 600; text-align: center; }
+.set-row .input-wrap { position: relative; }
+.set-row input { padding: 8px 10px; font-size: 15px; text-align: center; background: var(--card-2); }
+.set-row .input-wrap .unit { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 11px; color: var(--text-3); pointer-events: none; }
+.set-row .done-btn { width: 44px; height: 36px; border-radius: 9px; background: var(--card-2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-3); font-size: 18px; }
+.set-row.done .done-btn { background: var(--success); color: white; border-color: transparent; }
+.set-row.done input { opacity: 0.6; }
+
+.timer-block { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; box-shadow: var(--shadow); }
+.timer-block .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.timer-block .row .lbl { font-size: 13px; color: var(--text-2); }
+.timer-block .duration-input { display: flex; align-items: center; gap: 6px; }
+.timer-block .duration-input button { width: 32px; height: 32px; border-radius: 8px; background: var(--card-2); border: 1px solid var(--border); font-size: 16px; font-weight: 700; color: var(--text); }
+.timer-block .duration-input .val { font-size: 16px; font-weight: 600; min-width: 50px; text-align: center; }
+.timer-block .countdown { text-align: center; padding: 18px 0 12px; }
+.timer-block .countdown .time { font-size: 48px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: var(--accent); }
+.timer-block .countdown .actions { display: flex; gap: 8px; justify-content: center; margin-top: 10px; }
+.timer-block .countdown .actions button { padding: 8px 16px; border-radius: 9px; background: var(--card-2); border: 1px solid var(--border); font-size: 14px; font-weight: 600; }
+.timer-block .countdown .actions button.primary { background: var(--accent); color: white; border-color: transparent; }
+
+.note-block { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; box-shadow: var(--shadow); }
+.note-block textarea { background: transparent; border: none; padding: 4px 0; resize: vertical; min-height: 40px; font-size: 14px; }
+.note-block .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-3); margin-bottom: 4px; }
+
+.action-btn { background: var(--accent); color: white; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 600; width: 100%; margin-top: 6px; }
+.action-btn:disabled { opacity: 0.4; }
+.action-btn.secondary { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+.action-btn.danger { background: var(--danger-bg); color: var(--danger-text); }
+
+.links-list .link-row { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; box-shadow: var(--shadow); }
+.links-list .link-row .name { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+.links-list .link-row input { font-size: 13px; padding: 8px 10px; }
+
+.history-day { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; margin-bottom: 10px; box-shadow: var(--shadow); }
+.history-day .date { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.history-day .session-name { font-size: 12px; color: var(--text-2); margin-bottom: 8px; }
+.history-day .exo-list { font-size: 13px; }
+.history-day .exo-line { padding: 4px 0; border-top: 1px solid var(--border); }
+.history-day .exo-line:first-child { border-top: none; }
+.history-day .exo-line .ex-name { color: var(--text); font-weight: 500; }
+.history-day .exo-line .ex-sets { color: var(--text-2); font-size: 12px; margin-top: 2px; }
+
+.empty { text-align: center; color: var(--text-3); padding: 32px 16px; font-size: 14px; }
+
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+.timer-running .time { animation: pulse 1s infinite; }
+
+.toast { position: fixed; bottom: calc(env(safe-area-inset-bottom) + 20px); left: 50%; transform: translateX(-50%); background: var(--text); color: var(--bg); padding: 10px 18px; border-radius: 22px; font-size: 14px; font-weight: 500; z-index: 1000; opacity: 0; transition: opacity 0.2s; pointer-events: none; }
+.toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast" class="toast"></div>
+<script>
+'use strict';
+
+// ============================================================
+// DATA — programme complet
+// ============================================================
+const CYCLE = ['push1','pull1','legs1','rest','push2','pull2','legs2','rest'];
+
+const SESSIONS = {
+  push1: {
+    name: 'Push 1', subtitle: 'Priorité pectoraux',
+    muscles: 'Pectoraux · Épaules · Triceps', type: 'push',
+    heavy: [
+      { id: 'bench-flat',     name: 'Développé couché',        sets: 3, repsMin: 6,  repsMax: 8,  rest: 180 },
+    ],
+    iso: [
+      { id: 'bench-incline-1', name: 'Développé incliné',       sets: 3, repsMin: 12, repsMax: 15, rest: 90 },
+      { id: 'db-fly',          name: 'Écarté haltères',          sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
+      { id: 'ohp-1',           name: 'Développé militaire',      sets: 3, repsMin: 12, repsMax: 15, rest: 90 },
+      { id: 'skull-1',         name: 'Skull crushers',           sets: 3, repsMin: 12, repsMax: 15, rest: 60, note: 'Remplacer par triceps poulie si triceps fatigués', superset: 'lat-raises-1' },
+      { id: 'lat-raises-1',    name: 'Élévations latérales',     sets: 3, repsMin: 12, repsMax: 20, rest: 75, superset: 'skull-1' },
+    ],
+  },
+  pull1: {
+    name: 'Pull 1', subtitle: 'Priorité vertical',
+    muscles: 'Dos · Biceps · Arrière épaule', type: 'pull',
+    heavy: [
+      { id: 'pullup',          name: 'Tractions lestées',        sets: 3, repsMin: 6,  repsMax: 8,  rest: 180, warn: 'Remplacer par lat pulldown si <8 reps propres' },
+    ],
+    iso: [
+      { id: 'straight-arm',    name: 'Tirage bras tendus',       sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
+      { id: 'meadows-row',     name: 'Meadows row',              sets: 3, repsMin: 12, repsMax: 15, rest: 90 },
+      { id: 'shrugs',          name: 'Shrugs',                   sets: 3, repsMin: 6,  repsMax: 10, rest: 120, exception: 'lourd justifié — trapèzes' },
+      { id: 'curl-bar-1',      name: 'Curl barre strict',        sets: 3, repsMin: 8,  repsMax: 10, rest: 120, exception: 'lourd justifié — semi-compound' },
+      { id: 'hammer-curl',     name: 'Curl marteau',             sets: 3, repsMin: 10, repsMax: 12, rest: 75 },
+      { id: 'rear-delt-fly',   name: 'Oiseau buste penché',      sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
+    ],
+  },
+  legs1: {
+    name: 'Legs 1', subtitle: 'Priorité quadriceps',
+    muscles: 'Quads · Ischio · Mollets', type: 'legs',
+    heavy: [
+      { id: 'squat',           name: 'Squat',                    sets: 3, repsMin: 6,  repsMax: 8,  rest: 180 },
+    ],
+    iso: [
+      { id: 'lunges',          name: 'Fentes',                   sets: 3, repsMin: 12, repsMax: 15, rest: 90 },
+      { id: 'leg-extension',   name: 'Leg extension',            sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
+      { id: 'rdl',             name: 'Soulevé de terre roumain', sets: 3, repsMin: 10, repsMax: 12, rest: 120 },
+      { id: 'calves-1',        name: 'Mollets',                  sets: 3, repsMin: 12, repsMax: 15, rest: 60 },
+    ],
+  },
+  push2: {
+    name: 'Push 2', subtitle: 'Priorité épaules',
+    muscles: 'Épaules · Pectoraux · Triceps', type: 'push',
+    heavy: [
+      { id: 'ohp',             name: 'Développé militaire',      sets: 3, repsMin: 6,  repsMax: 8,  rest: 180 },
+    ],
+    iso: [
+      { id: 'bench-flat-2',    name: 'Développé couché plat',    sets: 3, repsMin: 12, repsMax: 15, rest: 90 },
+      { id: 'bench-incline-2', name: 'Développé incliné (variation)', sets: 3, repsMin: 12, repsMax: 15, rest: 90 },
+      { id: 'cable-fly',       name: 'Écarté poulie',            sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
+      { id: 'tri-pushdown',    name: 'Triceps poulie',           sets: 3, repsMin: 15, repsMax: 20, rest: 60, superset: 'lat-raises-2' },
+      { id: 'lat-raises-2',    name: 'Élévations latérales',     sets: 3, repsMin: 15, repsMax: 20, rest: 75, superset: 'tri-pushdown' },
+    ],
+  },
+  pull2: {
+    name: 'Pull 2', subtitle: 'Priorité horizontal',
+    muscles: 'Dos · Biceps · Arrière épaule', type: 'pull',
+    heavy: [
+      { id: 'barbell-row',     name: 'Rowing barre',             sets: 3, repsMin: 6,  repsMax: 8,  rest: 180 },
+    ],
+    iso: [
+      { id: 'seated-row',      name: 'Tirage horizontal poulie', sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
+      { id: 'lat-pulldown',    name: 'Lat pulldown',             sets: 3, repsMin: 12, repsMax: 15, rest: 90 },
+      { id: 'shrugs-back',     name: 'Shrugs derrière le dos',   sets: 3, repsMin: 6,  repsMax: 10, rest: 120, exception: 'lourd justifié — trapèzes' },
+      { id: 'curl-bar-2',      name: 'Curl barre strict',        sets: 3, repsMin: 8,  repsMax: 10, rest: 120, exception: 'lourd justifié — semi-compound' },
+      { id: 'hammer-cable',    name: 'Curl marteau poulie',      sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
+      { id: 'facepulls',       name: 'Facepulls',                sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
+    ],
+  },
+  legs2: {
+    name: 'Legs 2', subtitle: 'Priorité ischio-jambiers & fessiers',
+    muscles: 'Ischio · Fessiers · Mollets', type: 'legs',
+    heavy: [
+      { id: 'hip-thrust',      name: 'Hip thrusts',              sets: 3, repsMin: 8,  repsMax: 10, rest: 180 },
+    ],
+    iso: [
+      { id: 'leg-curl',        name: 'Leg curl',                 sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
+      { id: 'leg-press',       name: 'Presse à cuisses',         sets: 3, repsMin: 15, repsMax: 20, rest: 90 },
+      { id: 'glute-kickbacks', name: 'Kickbacks fessiers',       sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
+      { id: 'calves-2',        name: 'Mollets',                  sets: 3, repsMin: 15, repsMax: 20, rest: 60 },
+    ],
+  },
+};
+
+// All unique exercises (for the YouTube links editor) — by id
+function allExercises() {
+  const out = [];
+  const seen = new Set();
+  for (const sid of Object.keys(SESSIONS)) {
+    const s = SESSIONS[sid];
+    for (const e of [...s.heavy, ...s.iso]) {
+      if (!seen.has(e.id)) { seen.add(e.id); out.push({ ...e, sessionName: s.name }); }
+    }
+  }
+  return out;
+}
+
+// ============================================================
+// STORAGE
+// ============================================================
+const Store = (function() {
+  // In-memory fallback so the app works even when localStorage is unavailable
+  // (sandboxed iframes, private mode quirks, etc.). Writes always succeed in
+  // memory; we also try to persist to localStorage. Reads prefer localStorage,
+  // then memory.
+  const mem = {};
+  return {
+    get(k, def) {
+      try {
+        const v = localStorage.getItem(k);
+        if (v !== null) return JSON.parse(v);
+      } catch {}
+      return k in mem ? mem[k] : def;
+    },
+    set(k, v) {
+      mem[k] = v;
+      try { localStorage.setItem(k, JSON.stringify(v)); } catch {}
+    },
+  };
+})();
+
+// State persisted:
+// - ppl.cursor: index in CYCLE of the NEXT session to do (0..7)
+// - ppl.history: [ { date, sessionId, exercises: { exoId: { sets: [{weight, reps, done}], note } } } ]
+// - ppl.current: { sessionId, startedAt, exercises: {...} } — in-progress workout, null if none
+// - ppl.youtube: { exoId: url }
+// - ppl.customRest: { exoId: seconds } — overrides default
+
+function getCursor() { return Store.get('ppl.cursor', 0); }
+function setCursor(i) { Store.set('ppl.cursor', ((i % 8) + 8) % 8); }
+function getHistory() { return Store.get('ppl.history', []); }
+function setHistory(h) { Store.set('ppl.history', h); }
+function getCurrent() { return Store.get('ppl.current', null); }
+function setCurrent(c) { Store.set('ppl.current', c); }
+function getYoutube() { return Store.get('ppl.youtube', {}); }
+function setYoutube(y) { Store.set('ppl.youtube', y); }
+function getCustomRest() { return Store.get('ppl.customRest', {}); }
+function setCustomRest(r) { Store.set('ppl.customRest', r); }
+
+function restFor(exo) {
+  const c = getCustomRest();
+  return c[exo.id] != null ? c[exo.id] : exo.rest;
+}
+
+// Find last completed instance of an exercise in history (for "last time" display)
+function lastTimeFor(exoId) {
+  const h = getHistory();
+  for (let i = h.length - 1; i >= 0; i--) {
+    const ex = h[i].exercises && h[i].exercises[exoId];
+    if (ex && ex.sets && ex.sets.some(s => s.done)) return { date: h[i].date, sets: ex.sets.filter(s => s.done) };
+  }
+  return null;
+}
+
+// ============================================================
+// VIEW STATE
+// ============================================================
+let view = { name: 'home' };
+
+function nav(v) { view = v; window.scrollTo(0, 0); render(); }
+
+// ============================================================
+// UTILS
+// ============================================================
+function todayISO() { return new Date().toISOString().slice(0, 10); }
+function frDate(iso) {
+  const d = new Date(iso + 'T00:00:00');
+  return d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+}
+function fmtTime(s) { const m = Math.floor(s / 60); const r = s % 60; return `${m}:${String(r).padStart(2,'0')}`; }
+function el(tag, attrs = {}, ...children) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === 'class') e.className = v;
+    else if (k === 'style') e.setAttribute('style', v);
+    else if (k.startsWith('on')) e.addEventListener(k.slice(2), v);
+    else if (k === 'html') e.innerHTML = v;
+    else if (v != null) e.setAttribute(k, v);
+  }
+  for (const c of children.flat()) {
+    if (c == null || c === false) continue;
+    e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+  }
+  return e;
+}
+function badgeClass(type) { return 'badge-' + type; }
+function dayClass(type) { return 'day-' + type; }
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toast._h);
+  toast._h = setTimeout(() => t.classList.remove('show'), 1700);
+}
+
+// ============================================================
+// AUDIO BEEP (Web Audio, requires user gesture)
+// ============================================================
+let audioCtx = null;
+function beep() {
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    const t = audioCtx.currentTime;
+    for (let i = 0; i < 3; i++) {
+      const osc = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      osc.connect(g); g.connect(audioCtx.destination);
+      osc.frequency.value = 880;
+      g.gain.setValueAtTime(0, t + i * 0.25);
+      g.gain.linearRampToValueAtTime(0.25, t + i * 0.25 + 0.02);
+      g.gain.linearRampToValueAtTime(0, t + i * 0.25 + 0.15);
+      osc.start(t + i * 0.25); osc.stop(t + i * 0.25 + 0.16);
+    }
+  } catch {}
+}
+
+// ============================================================
+// TIMER (singleton across renders)
+// ============================================================
+const Timer = {
+  remaining: 0,
+  total: 0,
+  running: false,
+  exoId: null,
+  interval: null,
+  start(seconds, exoId) {
+    this.stop();
+    this.total = seconds; this.remaining = seconds; this.running = true; this.exoId = exoId;
+    this.interval = setInterval(() => {
+      this.remaining--;
+      if (this.remaining <= 0) { this.finish(); }
+      else { this.updateUI(); }
+    }, 1000);
+    this.updateUI();
+  },
+  stop() {
+    if (this.interval) clearInterval(this.interval);
+    this.interval = null; this.running = false; this.exoId = null;
+    this.updateUI();
+  },
+  finish() {
+    beep();
+    if (navigator.vibrate) navigator.vibrate([100,80,100]);
+    this.stop();
+    toast('Repos terminé');
+  },
+  updateUI() {
+    const c = document.getElementById('timer-countdown');
+    if (c && this.running) c.textContent = fmtTime(this.remaining);
+    const b = document.getElementById('timer-block');
+    if (b) b.classList.toggle('timer-running', this.running);
+  },
+};
+
+// ============================================================
+// CURRENT WORKOUT HELPERS
+// ============================================================
+function ensureCurrent(sessionId) {
+  let cur = getCurrent();
+  if (!cur || cur.sessionId !== sessionId) {
+    const s = SESSIONS[sessionId];
+    const exos = {};
+    for (const e of [...s.heavy, ...s.iso]) {
+      exos[e.id] = { sets: Array.from({length: e.sets}, () => ({ weight: '', reps: '', done: false })), note: '' };
+    }
+    cur = { sessionId, startedAt: todayISO(), exercises: exos };
+    setCurrent(cur);
+  }
+  // backfill last-time prefills if user hasn't typed yet
+  for (const exo of [...SESSIONS[sessionId].heavy, ...SESSIONS[sessionId].iso]) {
+    const last = lastTimeFor(exo.id);
+    if (last && cur.exercises[exo.id]) {
+      cur.exercises[exo.id].sets.forEach((s, idx) => {
+        if (s.weight === '' && !s.done) {
+          const lastSet = last.sets[idx] || last.sets[last.sets.length - 1];
+          if (lastSet) { s.weight = lastSet.weight; }
+        }
+      });
+    }
+  }
+  setCurrent(cur);
+  return cur;
+}
+
+function exerciseAllDone(cur, exoId) {
+  if (!cur || !cur.exercises) return false;
+  const e = cur.exercises[exoId];
+  return e && e.sets.length > 0 && e.sets.every(s => s.done);
+}
+
+function getProgressionHint(cur, exo) {
+  if (!cur || !cur.exercises) return null;
+  const e = cur.exercises[exo.id];
+  if (!e || !e.sets.every(s => s.done)) return null;
+  const allTop = e.sets.every(s => Number(s.reps) >= exo.repsMax);
+  return allTop ? `↑ Toutes les séries au max — augmente la charge la prochaine fois` : null;
+}
+
+function finishSession() {
+  const cur = getCurrent();
+  if (!cur) return;
+  const h = getHistory();
+  h.push({ date: cur.startedAt, sessionId: cur.sessionId, exercises: cur.exercises });
+  setHistory(h);
+  // advance cursor: position currently is "next session to do" — find current session position
+  const curIdx = CYCLE.indexOf(cur.sessionId);
+  if (curIdx !== -1) {
+    let next = (curIdx + 1) % 8;
+    // skip rest days for "next" suggestion
+    while (CYCLE[next] === 'rest') next = (next + 1) % 8;
+    setCursor(next);
+  }
+  setCurrent(null);
+  toast('Séance enregistrée');
+  nav({ name: 'home' });
+}
+
+// ============================================================
+// VIEWS
+// ============================================================
+function viewHome() {
+  const cursor = getCursor();
+  const todayId = CYCLE[cursor];
+  const todaySession = SESSIONS[todayId] || null;
+  const cur = getCurrent();
+
+  return el('div', {},
+    el('div', { class: 'topbar' },
+      el('h1', {}, 'PPL Programme'),
+      el('div', { class: 'right' },
+        el('button', { class: 'icon-btn', onclick: () => nav({ name: 'links' }) }, '▶ Liens'),
+        el('button', { class: 'icon-btn', onclick: () => nav({ name: 'history' }) }, '📅 Historique'),
+      ),
+    ),
+    el('div', { class: 'today' },
+      el('div', { class: 'label' }, cur ? 'Séance en cours' : 'Prochaine séance'),
+      el('div', { class: 'row' },
+        el('div', { class: 'info' },
+          el('div', { class: 'title' }, cur ? SESSIONS[cur.sessionId].name : (todaySession ? todaySession.name : 'Repos')),
+          el('div', { class: 'sub' }, cur ? SESSIONS[cur.sessionId].muscles : (todaySession ? todaySession.muscles : 'Récupération')),
+        ),
+        cur
+          ? el('button', { onclick: () => nav({ name: 'session', sessionId: cur.sessionId }) }, 'Reprendre →')
+          : (todaySession
+              ? el('button', { onclick: () => { ensureCurrent(todayId); nav({ name: 'session', sessionId: todayId }); } }, 'Commencer →')
+              : el('button', { onclick: () => { const next = (cursor + 1) % 8; setCursor(next); render(); } }, 'Passer →')),
+      ),
+    ),
+    el('div', { class: 'section-label' }, 'Cycle'),
+    el('div', { class: 'cycle-bar' },
+      CYCLE.map((sid, i) => {
+        const isPast = i < cursor && !(cur && CYCLE.indexOf(cur.sessionId) === i);
+        const s = sid === 'rest' ? null : SESSIONS[sid];
+        const cls = ['cycle-day', sid === 'rest' ? 'day-rest' : dayClass(s.type)];
+        if (i === cursor) cls.push('active');
+        return el('div', {
+          class: cls.join(' '),
+          onclick: () => {
+            if (sid === 'rest') { setCursor(i); render(); return; }
+            ensureCurrent(sid);
+            // align cursor on this session for clarity
+            setCursor(i);
+            nav({ name: 'session', sessionId: sid });
+          },
+        },
+          el('div', { class: 'day-num' }, 'J' + (i + 1)),
+          el('div', { class: 'day-name' }, sid === 'rest' ? 'Repos' : SESSIONS[sid].name),
+        );
+      }),
+    ),
+    el('div', { class: 'legend' },
+      el('div', { class: 'legend-item' }, el('div', { class: 'legend-dot', style: 'background:#993C1D' }), 'Lourd 6-8'),
+      el('div', { class: 'legend-item' }, el('div', { class: 'legend-dot', style: 'background:#185FA5' }), 'Isolation 12-20'),
+    ),
+    el('div', { class: 'section-label' }, 'Toutes les séances'),
+    Object.keys(SESSIONS).map(sid => {
+      const s = SESSIONS[sid];
+      return el('div', { class: 'session-card', onclick: () => { ensureCurrent(sid); nav({ name: 'session', sessionId: sid }); } },
+        el('div', { class: 'badge ' + badgeClass(s.type) }, s.name),
+        el('div', { class: 'info' },
+          el('div', { class: 'title' }, s.subtitle),
+          el('div', { class: 'sub' }, s.muscles),
+        ),
+        el('div', { class: 'chev' }, '›'),
+      );
+    }),
+  );
+}
+
+function exoRow(sessionId, exo, block) {
+  const cur = getCurrent();
+  const done = cur && cur.sessionId === sessionId && exerciseAllDone(cur, exo.id);
+  const yt = getYoutube()[exo.id];
+  return el('div', { class: 'exo-card' + (done ? ' done' : ''), onclick: () => nav({ name: 'exo', sessionId, exoId: exo.id }) },
+    el('div', { class: 'check' }, '✓'),
+    el('div', { class: 'name' },
+      el('div', { class: 'label', html: escapeHtml(exo.name)
+        + (exo.warn ? `<span class="warn-tag">${escapeHtml(exo.warn)}</span>` : '')
+        + (exo.exception ? `<span class="except-tag">exception</span>` : '')
+        + (exo.superset ? `<span class="superset-tag">superset</span>` : '')
+      }),
+      exo.note ? el('div', { class: 'meta' }, exo.note) : null,
+    ),
+    el('div', { class: 'sets-tag ' + block }, `${exo.sets} × ${exo.repsMin}-${exo.repsMax}`),
+    el('div', { class: 'yt' + (yt ? ' has-link' : '') }, yt ? '▶' : '○'),
+  );
+}
+
+function viewSession(sessionId) {
+  const s = SESSIONS[sessionId];
+  if (!s) return el('div', {}, 'Séance inconnue');
+  ensureCurrent(sessionId);
+
+  const allDone = [...s.heavy, ...s.iso].every(e => exerciseAllDone(getCurrent(), e.id));
+
+  return el('div', {},
+    el('div', { class: 'topbar' },
+      el('button', { class: 'back', onclick: () => nav({ name: 'home' }) }, '‹ Accueil'),
+      el('div', { class: 'right' },
+        el('button', { class: 'icon-btn', onclick: () => { if (confirm('Abandonner cette séance ? Les saisies seront perdues.')) { setCurrent(null); nav({ name: 'home' }); } } }, 'Abandonner'),
+      ),
+    ),
+    el('div', { class: 'session-header' },
+      el('div', { class: 'row' },
+        el('span', { class: 'badge ' + badgeClass(s.type) }, s.name),
+      ),
+      el('div', { class: 'title' }, s.subtitle),
+      el('div', { class: 'sub' }, s.muscles),
+    ),
+    el('div', { class: 'block-label heavy' }, el('div', { class: 'dot' }), 'Bloc lourd'),
+    s.heavy.map(e => exoRow(sessionId, e, 'heavy')),
+    el('div', { class: 'block-label iso' }, el('div', { class: 'dot' }), 'Bloc isolation'),
+    s.iso.map(e => exoRow(sessionId, e, e.exception ? 'heavy' : 'iso')),
+    el('button', { class: 'action-btn', disabled: !allDone ? 'disabled' : null, onclick: () => { if (confirm('Terminer la séance et l\'enregistrer dans l\'historique ?')) finishSession(); } },
+      allDone ? '✓ Terminer la séance' : 'Termine tous les exercices pour valider'),
+  );
+}
+
+function viewExo(sessionId, exoId) {
+  const s = SESSIONS[sessionId];
+  const exo = [...s.heavy, ...s.iso].find(e => e.id === exoId);
+  if (!exo) return el('div', {}, 'Exercice inconnu');
+
+  const cur = ensureCurrent(sessionId);
+  const exState = cur.exercises[exoId];
+  const last = lastTimeFor(exoId);
+  const yt = getYoutube()[exoId];
+  const restSec = restFor(exo);
+  const hint = getProgressionHint(cur, exo);
+
+  function updateSet(idx, field, val) {
+    exState.sets[idx][field] = val;
+    setCurrent(cur);
+  }
+  function toggleDone(idx) {
+    const s = exState.sets[idx];
+    s.done = !s.done;
+    setCurrent(cur);
+    if (s.done && (s.weight !== '' || s.reps !== '')) {
+      Timer.start(restSec, exoId);
+    }
+    renderExoOnly();
+  }
+  function changeRest(delta) {
+    const cr = getCustomRest();
+    const cur = restFor(exo);
+    const next = Math.max(15, Math.min(600, cur + delta));
+    cr[exoId] = next;
+    setCustomRest(cr);
+    renderExoOnly();
+  }
+  function setRest(val) {
+    const cr = getCustomRest();
+    cr[exoId] = Math.max(15, Math.min(600, val));
+    setCustomRest(cr);
+    renderExoOnly();
+  }
+
+  function renderExoOnly() { render(); }
+
+  return el('div', { class: 'exo-detail' },
+    el('div', { class: 'topbar' },
+      el('button', { class: 'back', onclick: () => nav({ name: 'session', sessionId }) }, '‹ Séance'),
+      exo.superset
+        ? el('button', { class: 'icon-btn primary', onclick: () => nav({ name: 'exo', sessionId, exoId: exo.superset }) }, 'Superset ↔')
+        : null,
+    ),
+    el('div', { class: 'header' },
+      el('div', { class: 'title', html: escapeHtml(exo.name)
+        + (exo.warn ? `<span class="warn-tag">${escapeHtml(exo.warn)}</span>` : '')
+        + (exo.exception ? `<span class="except-tag">${escapeHtml(exo.exception)}</span>` : '')
+        + (exo.superset ? `<span class="superset-tag">superset</span>` : '')
+      }),
+      el('div', { class: 'target' }, 'Objectif : ', el('strong', {}, `${exo.sets} × ${exo.repsMin}-${exo.repsMax} reps`)),
+      exo.note ? el('div', { class: 'note' }, exo.note) : null,
+      el('button', { class: 'yt-btn' + (yt ? ' has-link' : ''), onclick: () => {
+        if (yt) { window.open(yt, '_blank'); }
+        else {
+          const url = prompt('URL YouTube (ex: https://youtu.be/...)');
+          if (url) { const all = getYoutube(); all[exoId] = url.trim(); setYoutube(all); render(); }
+        }
+      } }, yt ? '▶ Voir la démo' : '+ Ajouter un lien YouTube'),
+      hint ? el('div', { class: 'progression' }, hint) : null,
+    ),
+    last ? el('div', { class: 'last-time' },
+      el('div', { class: 'lbl' }, 'Dernière fois — ' + frDate(last.date)),
+      last.sets.map(s => `${s.weight || '?'}kg × ${s.reps || '?'}`).join(' · '),
+    ) : null,
+    el('div', { class: 'sets-block' },
+      el('h3', { style: 'font-size:13px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;font-weight:600;' }, 'Séries'),
+      exState.sets.map((s, idx) => el('div', { class: 'set-row' + (s.done ? ' done' : '') },
+        el('div', { class: 'num' }, String(idx + 1)),
+        el('div', { class: 'input-wrap' },
+          el('input', { type: 'number', inputmode: 'decimal', step: '0.5', value: s.weight, placeholder: 'kg',
+            oninput: (e) => updateSet(idx, 'weight', e.target.value) }),
+          el('span', { class: 'unit' }, 'kg'),
+        ),
+        el('div', { class: 'input-wrap' },
+          el('input', { type: 'number', inputmode: 'numeric', value: s.reps, placeholder: 'reps',
+            oninput: (e) => updateSet(idx, 'reps', e.target.value) }),
+          el('span', { class: 'unit' }, 'reps'),
+        ),
+        el('button', { class: 'done-btn', onclick: () => toggleDone(idx) }, '✓'),
+      )),
+    ),
+    el('div', { class: 'timer-block', id: 'timer-block' },
+      el('div', { class: 'row' },
+        el('div', { class: 'lbl' }, 'Repos entre séries'),
+        el('div', { class: 'duration-input' },
+          el('button', { onclick: () => changeRest(-15) }, '−'),
+          el('div', { class: 'val' }, fmtTime(restSec)),
+          el('button', { onclick: () => changeRest(15) }, '+'),
+        ),
+      ),
+      Timer.running && Timer.exoId === exoId
+        ? el('div', { class: 'countdown' },
+            el('div', { class: 'time', id: 'timer-countdown' }, fmtTime(Timer.remaining)),
+            el('div', { class: 'actions' },
+              el('button', { onclick: () => { Timer.stop(); render(); } }, 'Annuler'),
+              el('button', { class: 'primary', onclick: () => { Timer.stop(); render(); } }, 'Passer'),
+            ),
+          )
+        : el('div', { class: 'countdown' },
+            el('div', { class: 'time', style: 'color:var(--text-3)' }, fmtTime(restSec)),
+            el('div', { class: 'actions' },
+              el('button', { class: 'primary', onclick: () => { Timer.start(restSec, exoId); render(); } }, 'Démarrer'),
+            ),
+          ),
+    ),
+    el('div', { class: 'note-block' },
+      el('div', { class: 'lbl' }, 'Note'),
+      el('textarea', { placeholder: 'Sensation, douleur, technique...', oninput: (e) => { exState.note = e.target.value; setCurrent(cur); } }, exState.note || ''),
+    ),
+  );
+}
+
+function viewLinks() {
+  const all = allExercises();
+  const yt = getYoutube();
+  function setLink(id, val) {
+    const cur = getYoutube();
+    if (val.trim()) cur[id] = val.trim(); else delete cur[id];
+    setYoutube(cur);
+  }
+  return el('div', {},
+    el('div', { class: 'topbar' },
+      el('button', { class: 'back', onclick: () => nav({ name: 'home' }) }, '‹ Accueil'),
+      el('h2', {}, 'Liens YouTube'),
+      el('div', { style: 'width:80px' }),
+    ),
+    el('div', { class: 'section-label' }, `${Object.keys(yt).length} / ${all.length} liens définis`),
+    el('div', { class: 'links-list' },
+      all.map(e => el('div', { class: 'link-row' },
+        el('div', { class: 'name' }, e.name + ' ', el('span', { style: 'color:var(--text-3);font-weight:400;font-size:12px' }, '— ' + e.sessionName)),
+        el('input', { type: 'url', placeholder: 'https://youtu.be/...', value: yt[e.id] || '',
+          oninput: (ev) => setLink(e.id, ev.target.value) }),
+      )),
+    ),
+  );
+}
+
+function viewHistory() {
+  const h = [...getHistory()].reverse();
+  return el('div', {},
+    el('div', { class: 'topbar' },
+      el('button', { class: 'back', onclick: () => nav({ name: 'home' }) }, '‹ Accueil'),
+      el('h2', {}, 'Historique'),
+      el('div', { style: 'width:80px' }),
+    ),
+    h.length === 0 ? el('div', { class: 'empty' }, 'Aucune séance enregistrée pour l\'instant.') : null,
+    h.map((entry, idx) => {
+      const s = SESSIONS[entry.sessionId];
+      if (!s) return null;
+      return el('div', { class: 'history-day' },
+        el('div', { class: 'date' }, frDate(entry.date)),
+        el('div', { class: 'session-name' }, el('span', { class: 'badge ' + badgeClass(s.type), style: 'padding:2px 7px;font-size:10px;border-radius:5px;' }, s.name), '  ', s.subtitle),
+        el('div', { class: 'exo-list' },
+          [...s.heavy, ...s.iso].map(exo => {
+            const ex = entry.exercises[exo.id];
+            if (!ex) return null;
+            const sets = ex.sets.filter(s => s.done);
+            if (sets.length === 0) return null;
+            return el('div', { class: 'exo-line' },
+              el('div', { class: 'ex-name' }, exo.name),
+              el('div', { class: 'ex-sets' }, sets.map(s => `${s.weight}kg × ${s.reps}`).join(' · ')),
+              ex.note ? el('div', { class: 'ex-sets', style: 'font-style:italic' }, '« ' + ex.note + ' »') : null,
+            );
+          }),
+        ),
+        el('button', { class: 'icon-btn', style: 'margin-top:8px;font-size:12px;color:var(--danger-text)', onclick: () => {
+          if (confirm('Supprimer cette séance de l\'historique ?')) {
+            const hist = getHistory();
+            // entry is from reversed; remove the matching one
+            const realIdx = hist.length - 1 - idx;
+            hist.splice(realIdx, 1);
+            setHistory(hist);
+            render();
+          }
+        } }, 'Supprimer'),
+      );
+    }),
+  );
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function render() {
+  const root = document.getElementById('app');
+  root.innerHTML = '';
+  let content;
+  switch (view.name) {
+    case 'session': content = viewSession(view.sessionId); break;
+    case 'exo':     content = viewExo(view.sessionId, view.exoId); break;
+    case 'links':   content = viewLinks(); break;
+    case 'history': content = viewHistory(); break;
+    default:        content = viewHome();
+  }
+  root.appendChild(content);
+  if (Timer.running) Timer.updateUI();
+}
+
+// On load, if there's a current workout, jump to it
+(function init() {
+  const cur = getCurrent();
+  if (cur && SESSIONS[cur.sessionId]) {
+    view = { name: 'session', sessionId: cur.sessionId };
+  }
+  render();
+})();
+</script>
+</body>
+</html>
