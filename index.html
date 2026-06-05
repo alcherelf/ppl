@@ -92,6 +92,11 @@ h3 { font-size: 15px; font-weight: 600; }
 .icon-btn { padding: 8px 10px; border-radius: 10px; background: var(--card); border: 1px solid var(--border); font-size: 14px; color: var(--text-2); }
 .icon-btn.primary { background: var(--accent-bg); color: var(--accent); border-color: transparent; }
 
+.program-pill { display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 20px; background: var(--card); border: 1px solid var(--border); font-size: 13px; color: var(--text); margin-bottom: 14px; box-shadow: var(--shadow); cursor: pointer; }
+.program-pill .lbl { color: var(--text-3); font-weight: 500; }
+.program-pill .name { font-weight: 600; }
+.program-pill .chev { font-size: 11px; color: var(--text-3); margin-left: 2px; }
+
 .today { background: var(--card); border-radius: 14px; padding: 14px 16px; margin-bottom: 14px; border: 1px solid var(--border); box-shadow: var(--shadow); }
 .today .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3); margin-bottom: 4px; }
 .today .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
@@ -99,15 +104,14 @@ h3 { font-size: 15px; font-weight: 600; }
 .today .row > .info .title { font-size: 18px; font-weight: 600; }
 .today .row > .info .sub { font-size: 13px; color: var(--text-2); margin-top: 1px; }
 .today .row > button { background: var(--accent); color: white; padding: 10px 14px; border-radius: 10px; font-weight: 600; white-space: nowrap; }
+.today .prog-tag { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 5px; background: var(--card-2); color: var(--text-2); margin-left: 6px; font-weight: 600; vertical-align: middle; }
 
-.cycle-bar { display: grid; grid-template-columns: repeat(8, 1fr); gap: 5px; margin-bottom: 18px; }
+.cycle-bar { display: grid; gap: 5px; margin-bottom: 18px; }
 .cycle-day { text-align: center; padding: 8px 2px; border-radius: 9px; border: 1.5px solid transparent; cursor: pointer; transition: transform 0.1s; }
 .cycle-day:active { transform: scale(0.94); }
 .cycle-day.active { border-color: var(--text); }
 .cycle-day .day-num { font-size: 9px; color: var(--text-3); }
 .cycle-day .day-name { font-size: 10px; font-weight: 600; margin-top: 2px; line-height: 1.1; }
-.cycle-day.done { opacity: 0.55; }
-.cycle-day.done::after { content: " ✓"; }
 .day-push { background: var(--push-bg); color: var(--push-text); }
 .day-pull { background: var(--pull-bg); color: var(--pull-text); }
 .day-legs { background: var(--legs-bg); color: var(--legs-text); }
@@ -131,9 +135,10 @@ h3 { font-size: 15px; font-weight: 600; }
 .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
 
 .session-header { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; margin-bottom: 14px; box-shadow: var(--shadow); }
-.session-header .row { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.session-header .row { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
 .session-header .title { font-size: 18px; font-weight: 600; }
 .session-header .sub { font-size: 13px; color: var(--text-2); }
+.session-header .prog-tag { font-size: 10px; padding: 2px 7px; border-radius: 5px; background: var(--card-2); color: var(--text-2); font-weight: 600; }
 
 .block-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin: 14px 4px 8px; display: flex; align-items: center; gap: 6px; }
 .block-label.heavy { color: var(--heavy); }
@@ -142,7 +147,7 @@ h3 { font-size: 15px; font-weight: 600; }
 .block-label.heavy .dot { background: var(--heavy); }
 .block-label.iso .dot { background: var(--iso); }
 
-.exo-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow); cursor: pointer; transition: transform 0.1s; }
+.exo-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow); cursor: pointer; transition: transform 0.1s; }
 .exo-card:active { transform: scale(0.99); }
 .exo-card.done { border-color: var(--success); background: var(--success-bg); }
 .exo-card .check { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border-2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 13px; color: transparent; }
@@ -166,16 +171,28 @@ h3 { font-size: 15px; font-weight: 600; }
 
 .exo-detail { display: flex; flex-direction: column; gap: 14px; }
 .exo-detail .header { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; box-shadow: var(--shadow); }
-.exo-detail .header .title { font-size: 19px; font-weight: 600; margin-bottom: 4px; }
+.exo-detail .header .title { font-size: 19px; font-weight: 600; margin-bottom: 4px; line-height: 1.3; }
 .exo-detail .header .target { font-size: 14px; color: var(--text-2); }
 .exo-detail .header .target strong { color: var(--text); }
 .exo-detail .header .note { font-size: 12px; color: var(--warn-text); background: var(--warn-bg); padding: 6px 10px; border-radius: 8px; margin-top: 8px; }
+.exo-detail .header .desc { font-size: 13px; color: var(--text-2); background: var(--card-2); padding: 10px 12px; border-radius: 9px; margin-top: 10px; line-height: 1.45; border-left: 3px solid var(--accent); }
 .exo-detail .header .yt-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--card-2); padding: 8px 12px; border-radius: 9px; font-size: 13px; color: var(--text-2); margin-top: 10px; border: 1px solid var(--border); }
 .exo-detail .header .yt-btn.has-link { background: #ffe5e5; color: #c00; border-color: transparent; }
 @media (prefers-color-scheme: dark) {
   .exo-detail .header .yt-btn.has-link { background: rgba(255,80,80,0.15); color: #ff7070; }
 }
 .exo-detail .header .progression { background: var(--success-bg); color: var(--success); padding: 8px 12px; border-radius: 9px; font-size: 13px; font-weight: 500; margin-top: 10px; display: flex; align-items: center; gap: 6px; }
+
+.mistakes { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+.mistakes .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-3); margin-bottom: 8px; font-weight: 600; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+.mistakes .lbl .chev { font-size: 10px; transition: transform 0.15s; }
+.mistakes.collapsed .lbl .chev { transform: rotate(-90deg); }
+.mistakes.collapsed ul { display: none; }
+.mistakes ul { list-style: none; display: flex; flex-direction: column; gap: 6px; padding: 0; margin: 0; }
+.mistakes li { font-size: 12.5px; line-height: 1.4; padding: 8px 10px; border-radius: 8px; display: flex; gap: 8px; align-items: flex-start; }
+.mistakes li.form { background: var(--warn-bg); color: var(--warn-text); }
+.mistakes li.injury { background: var(--danger-bg); color: var(--danger-text); }
+.mistakes li .ico { flex-shrink: 0; font-size: 13px; line-height: 1.3; font-weight: 700; }
 
 .variant-replaces { font-size: 12px; color: var(--text-3); margin-top: 4px; }
 
@@ -194,6 +211,20 @@ h3 { font-size: 15px; font-weight: 600; }
 .swap-option .so-text .so-tag { font-size: 11px; color: var(--text-3); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
 .swap-option.active .so-text .so-tag { color: var(--accent); }
 .swap-option .so-check { color: var(--accent); font-size: 20px; flex-shrink: 0; }
+
+.program-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 12px; box-shadow: var(--shadow); cursor: pointer; transition: transform 0.1s; }
+.program-card:active { transform: scale(0.99); }
+.program-card.active { border-color: var(--accent); background: var(--accent-bg); }
+.program-card .top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.program-card .name { font-size: 17px; font-weight: 700; flex: 1; }
+.program-card .star { color: var(--accent); font-size: 16px; }
+.program-card .active-tag { font-size: 10px; padding: 3px 8px; border-radius: 5px; background: var(--accent); color: white; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.program-card .desc { font-size: 13px; color: var(--text-2); margin-bottom: 12px; line-height: 1.45; }
+.program-card .stats { display: flex; gap: 12px; font-size: 11px; color: var(--text-3); margin-bottom: 12px; flex-wrap: wrap; }
+.program-card .stats .stat { display: flex; align-items: center; gap: 4px; }
+.program-card .stats .stat strong { color: var(--text-2); font-weight: 700; }
+.program-card .pills { display: flex; flex-wrap: wrap; gap: 5px; }
+.program-card .pills .pill { font-size: 10px; padding: 3px 7px; border-radius: 5px; font-weight: 600; }
 
 .last-time { background: var(--card-2); border-radius: 10px; padding: 10px 12px; font-size: 13px; color: var(--text-2); }
 .last-time .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-3); margin-bottom: 3px; }
@@ -236,7 +267,7 @@ h3 { font-size: 15px; font-weight: 600; }
 
 .history-day { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; margin-bottom: 10px; box-shadow: var(--shadow); }
 .history-day .date { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
-.history-day .session-name { font-size: 12px; color: var(--text-2); margin-bottom: 8px; }
+.history-day .session-name { font-size: 12px; color: var(--text-2); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .history-day .exo-list { font-size: 13px; }
 .history-day .exo-line { padding: 4px 0; border-top: 1px solid var(--border); }
 .history-day .exo-line:first-child { border-top: none; }
@@ -259,160 +290,417 @@ h3 { font-size: 15px; font-weight: 600; }
 'use strict';
 
 // ============================================================
-// DATA — programme complet
+// DATA — deux programmes complets
 // ============================================================
-const CYCLE = ['push1','pull1','legs1','rest','push2','pull2','legs2','rest'];
-
-const SESSIONS = {
-  push1: {
-    name: 'Push 1', subtitle: 'Priorité pectoraux',
-    muscles: 'Pectoraux · Épaules · Triceps', type: 'push',
-    heavy: [
-      { id: 'bench-flat', name: 'Développé couché', sets: 3, repsMin: 6, repsMax: 8, rest: 180,
-        alts: ['Développé haltères', 'Presse à pectoraux (machine)', 'Développé couché Smith machine'] },
-    ],
-    iso: [
-      { id: 'bench-incline-1', name: 'Développé incliné', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
-        alts: ['Presse inclinée (machine)', 'Développé incliné haltères', 'Développé incliné Smith machine'] },
-      { id: 'db-fly', name: 'Écarté haltères', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
-        alts: ['Pec deck (machine papillon)', 'Écarté poulie basse croisée', 'Écarté machine'] },
-      { id: 'ohp-1', name: 'Développé militaire', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
-        alts: ['Développé haltères assis', 'Presse épaules (machine)', 'Développé Smith overhead'] },
-      { id: 'skull-1', name: 'Skull crushers', sets: 3, repsMin: 12, repsMax: 15, rest: 60,
-        note: 'Remplacer par triceps poulie si triceps fatigués', superset: 'lat-raises-1',
-        alts: ['Triceps poulie corde', 'Extension triceps overhead poulie', 'Triceps poulie barre droite'] },
-      { id: 'lat-raises-1', name: 'Élévations latérales', sets: 3, repsMin: 12, repsMax: 20, rest: 75, superset: 'skull-1',
-        alts: ['Élévations latérales poulie basse (unilatéral)', 'Élévations latérales machine', 'Élévations latérales haltères incliné'] },
-    ],
+const PROGRAMS = {
+  ppl6: {
+    id: 'ppl6',
+    name: 'PPL 6-jours (volume)',
+    short: '6-day',
+    description: 'Push / Pull / Legs répétés 2x sur 8 jours, avec un jour de repos après chaque triplette. Volume hebdomadaire élevé et fréquence 2x/semaine par muscle. Bloc lourd (compound) + bloc isolation par séance.',
+    cycle: ['push1','pull1','legs1','rest','push2','pull2','legs2','rest'],
+    sessions: {
+      push1: {
+        name: 'Push 1', subtitle: 'Priorité pectoraux',
+        muscles: 'Pectoraux · Épaules · Triceps', type: 'push',
+        heavy: [
+          { id: 'bench-flat', name: 'Développé couché', sets: 3, repsMin: 6, repsMax: 8, rest: 180,
+            alts: ['Développé haltères', 'Presse à pectoraux (machine)', 'Développé couché Smith machine'] },
+        ],
+        iso: [
+          { id: 'bench-incline-1', name: 'Développé incliné', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
+            alts: ['Presse inclinée (machine)', 'Développé incliné haltères', 'Développé incliné Smith machine'] },
+          { id: 'db-fly', name: 'Écarté haltères', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+            alts: ['Pec deck (machine papillon)', 'Écarté poulie basse croisée', 'Écarté machine'] },
+          { id: 'ohp-1', name: 'Développé militaire', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
+            alts: ['Développé haltères assis', 'Presse épaules (machine)', 'Développé Smith overhead'] },
+          { id: 'skull-1', name: 'Skull crushers', sets: 3, repsMin: 12, repsMax: 15, rest: 60,
+            note: 'Remplacer par triceps poulie si triceps fatigués', superset: 'lat-raises-1',
+            alts: ['Extension triceps poulie haute (corde)', 'Extension overhead poulie', 'Dips machine assistée'] },
+          { id: 'lat-raises-1', name: 'Élévations latérales', sets: 3, repsMin: 12, repsMax: 20, rest: 75,
+            superset: 'skull-1',
+            alts: ['Élévations poulie basse (unilatéral)', 'Machine élévations latérales', 'Élévations haltères incliné'] },
+        ],
+      },
+      pull1: {
+        name: 'Pull 1', subtitle: 'Priorité vertical',
+        muscles: 'Dos · Biceps · Arrière épaule', type: 'pull',
+        heavy: [
+          { id: 'pullup', name: 'Tractions lestées', sets: 3, repsMin: 6, repsMax: 8, rest: 180,
+            warn: 'Remplacer par lat pulldown si <8 reps propres',
+            alts: ['Lat pulldown prise large', 'Lat pulldown prise neutre', 'Machine traction assistée'] },
+        ],
+        iso: [
+          { id: 'straight-arm', name: 'Tirage bras tendus', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+            alts: ['Pullover poulie haute (corde)', 'Pullover machine', 'Pullover haltère'] },
+          { id: 'meadows-row', name: 'Meadows row', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
+            alts: ['Rowing machine convergente', 'Rowing haltère unilatéral', 'Rowing poulie basse unilatéral'] },
+          { id: 'shrugs', name: 'Shrugs', sets: 3, repsMin: 6, repsMax: 10, rest: 120,
+            exception: 'lourd justifié — trapèzes',
+            alts: ['Shrugs Smith machine', 'Shrugs haltères', 'Shrugs presse à cuisses'] },
+          { id: 'curl-bar-1', name: 'Curl barre strict', sets: 3, repsMin: 8, repsMax: 10, rest: 120,
+            exception: 'lourd justifié — semi-compound',
+            alts: ['Curl machine (Larry Scott)', 'Curl pupitre barre', 'Curl poulie basse barre'] },
+          { id: 'hammer-curl', name: 'Curl marteau', sets: 3, repsMin: 10, repsMax: 12, rest: 75,
+            alts: ['Curl marteau poulie basse (corde)', 'Curl marteau incliné', 'Curl marteau machine'] },
+          { id: 'rear-delt-fly', name: 'Oiseau buste penché', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+            alts: ['Facepulls poulie haute', 'Reverse pec deck', 'Oiseau haltères'] },
+        ],
+      },
+      legs1: {
+        name: 'Legs 1', subtitle: 'Priorité quadriceps',
+        muscles: 'Quads · Ischio · Mollets', type: 'legs',
+        heavy: [
+          { id: 'squat', name: 'Squat', sets: 3, repsMin: 6, repsMax: 8, rest: 180,
+            alts: ['Presse à cuisses', 'Hack squat machine', 'Squat Smith machine'] },
+        ],
+        iso: [
+          { id: 'lunges', name: 'Fentes', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
+            alts: ['Fentes Smith machine', 'Split squat bulgare haltères', 'Leg press unilatéral'] },
+          { id: 'leg-extension', name: 'Leg extension', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+            alts: ['Leg extension unilatéral', 'Sissy squat', 'Reverse Nordic curl'] },
+          { id: 'rdl', name: 'Soulevé de terre roumain', sets: 3, repsMin: 10, repsMax: 12, rest: 120,
+            alts: ['Leg curl debout machine', 'Good morning Smith machine léger', 'Hip hinge poulie basse'] },
+          { id: 'calves-1', name: 'Mollets', sets: 3, repsMin: 12, repsMax: 15, rest: 60,
+            alts: ['Mollets presse à cuisses', 'Mollets debout machine', 'Mollets assis (soléaire)'] },
+        ],
+      },
+      push2: {
+        name: 'Push 2', subtitle: 'Priorité épaules',
+        muscles: 'Épaules · Pectoraux · Triceps', type: 'push',
+        heavy: [
+          { id: 'ohp', name: 'Développé militaire', sets: 3, repsMin: 6, repsMax: 8, rest: 180,
+            alts: ['Presse épaules machine', 'Développé haltères assis', 'Smith machine overhead press'] },
+        ],
+        iso: [
+          { id: 'bench-flat-2', name: 'Développé couché plat', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
+            alts: ['Développé haltères plat', 'Presse à pectoraux', 'Smith machine bench plat'] },
+          { id: 'bench-incline-2', name: 'Développé incliné (variation)', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
+            alts: ['Presse inclinée machine', 'Développé incliné haltères', 'Low-incline Smith'] },
+          { id: 'cable-fly', name: 'Écarté poulie', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+            alts: ['Pec deck', 'Écarté haltères', 'Écarté machine'] },
+          { id: 'tri-pushdown', name: 'Triceps poulie', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+            superset: 'lat-raises-2',
+            alts: ['Extension overhead haltère', 'Kickback triceps poulie', 'Dips machine assistée'] },
+          { id: 'lat-raises-2', name: 'Élévations latérales', sets: 3, repsMin: 15, repsMax: 20, rest: 75,
+            superset: 'tri-pushdown',
+            alts: ['Élévations poulie basse', 'Machine élévations latérales', 'Élévations haltères incliné'] },
+        ],
+      },
+      pull2: {
+        name: 'Pull 2', subtitle: 'Priorité horizontal',
+        muscles: 'Dos · Biceps · Arrière épaule', type: 'pull',
+        heavy: [
+          { id: 'barbell-row', name: 'Rowing barre', sets: 3, repsMin: 6, repsMax: 8, rest: 180,
+            alts: ['Rowing machine convergente', 'Rowing poulie basse prise large', 'T-bar row'] },
+        ],
+        iso: [
+          { id: 'seated-row', name: 'Tirage horizontal poulie', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+            alts: ['Rowing machine prise neutre', 'Rowing haltère unilatéral', 'Rowing barre léger'] },
+          { id: 'lat-pulldown', name: 'Lat pulldown', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
+            alts: ['Tractions assistées (machine)', 'Lat pulldown prise neutre', 'Pulldown unilatéral'] },
+          { id: 'shrugs-back', name: 'Shrugs derrière le dos', sets: 3, repsMin: 6, repsMax: 10, rest: 120,
+            exception: 'lourd justifié — trapèzes',
+            alts: ['Shrugs Smith machine', 'Shrugs haltères', 'Shrugs presse à cuisses'] },
+          { id: 'curl-bar-2', name: 'Curl barre strict', sets: 3, repsMin: 8, repsMax: 10, rest: 120,
+            exception: 'lourd justifié — semi-compound',
+            alts: ['Curl machine (Larry Scott)', 'Curl pupitre barre', 'Curl poulie basse barre'] },
+          { id: 'hammer-cable', name: 'Curl marteau poulie', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+            alts: ['Curl marteau haltères', 'Curl brachial poulie basse', 'Curl reverse barre'] },
+          { id: 'facepulls', name: 'Facepulls', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+            alts: ['Reverse pec deck', 'Tirage menton prise large poulie', 'Élévation latérale buste penché poulie'] },
+        ],
+      },
+      legs2: {
+        name: 'Legs 2', subtitle: 'Priorité ischio-jambiers & fessiers',
+        muscles: 'Ischio · Fessiers · Mollets', type: 'legs',
+        heavy: [
+          { id: 'hip-thrust', name: 'Hip thrusts', sets: 3, repsMin: 8, repsMax: 10, rest: 180,
+            alts: ['Hip thrust machine', 'Hip thrust Smith machine', 'Single-leg hip thrust'] },
+        ],
+        iso: [
+          { id: 'leg-curl', name: 'Leg curl', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+            alts: ['Leg curl assis (machine)', 'Leg curl debout unilatéral', 'Nordic curl avec aide'] },
+          { id: 'leg-press', name: 'Presse à cuisses', sets: 3, repsMin: 15, repsMax: 20, rest: 90,
+            alts: ['Hack squat machine', 'Squat Smith machine', 'Leg press unilatéral'] },
+          { id: 'glute-kickbacks', name: 'Kickbacks fessiers', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+            alts: ['Cable kickback (sangle cheville)', 'Hip abduction machine', 'Glute drive machine'] },
+          { id: 'calves-2', name: 'Mollets', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
+            alts: ['Mollets debout machine', 'Mollets à la presse', 'Mollets assis (soléaire)'] },
+        ],
+      },
+    },
   },
-  pull1: {
-    name: 'Pull 1', subtitle: 'Priorité vertical',
-    muscles: 'Dos · Biceps · Arrière épaule', type: 'pull',
-    heavy: [
-      { id: 'pullup', name: 'Tractions lestées', sets: 3, repsMin: 6, repsMax: 8, rest: 180,
-        warn: 'Remplacer par lat pulldown si <8 reps propres',
-        alts: ['Lat pulldown prise large', 'Lat pulldown prise neutre', 'Traction assistée machine'] },
-    ],
-    iso: [
-      { id: 'straight-arm', name: 'Tirage bras tendus', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
-        alts: ['Pullover poulie haute (corde)', 'Pullover machine', 'Pullover haltère'] },
-      { id: 'meadows-row', name: 'Meadows row', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
-        alts: ['Rowing machine convergente', 'Rowing haltère unilatéral', 'Rowing poulie basse unilatéral'] },
-      { id: 'shrugs', name: 'Shrugs', sets: 3, repsMin: 6, repsMax: 10, rest: 120,
-        exception: 'lourd justifié — trapèzes',
-        alts: ['Shrugs haltères', 'Shrugs Smith machine', 'Shrugs trap bar (barre hexagonale)'] },
-      { id: 'curl-bar-1', name: 'Curl barre strict', sets: 3, repsMin: 8, repsMax: 10, rest: 120,
-        exception: 'lourd justifié — semi-compound',
-        alts: ['Curl pupitre barre', 'Curl Larry Scott (machine)', 'Curl poulie basse barre EZ'] },
-      { id: 'hammer-curl', name: 'Curl marteau', sets: 3, repsMin: 10, repsMax: 12, rest: 75,
-        alts: ['Curl marteau poulie corde', 'Curl marteau haltères incliné', 'Curl brachial machine'] },
-      { id: 'rear-delt-fly', name: 'Oiseau buste penché', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
-        alts: ['Reverse pec deck', 'Facepulls poulie haute', 'Oiseau haltères assis'] },
-    ],
-  },
-  legs1: {
-    name: 'Legs 1', subtitle: 'Priorité quadriceps',
-    muscles: 'Quads · Ischio · Mollets', type: 'legs',
-    heavy: [
-      { id: 'squat', name: 'Squat', sets: 3, repsMin: 6, repsMax: 8, rest: 180,
-        alts: ['Hack squat machine', 'Presse à cuisses (profonde)', 'Squat Smith machine'] },
-    ],
-    iso: [
-      { id: 'lunges', name: 'Fentes', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
-        alts: ['Split squat bulgare haltères', 'Fentes Smith machine', 'Presse à cuisses unilatérale'] },
-      { id: 'leg-extension', name: 'Leg extension', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
-        alts: ['Leg extension unilatérale', 'Sissy squat (avancé)'] },
-      { id: 'rdl', name: 'Soulevé de terre roumain', sets: 3, repsMin: 10, repsMax: 12, rest: 120,
-        alts: ['Pull-through poulie basse (hip hinge câble)', 'Good morning Smith machine', 'Single-leg RDL haltère'] },
-      { id: 'calves-1', name: 'Mollets', sets: 3, repsMin: 12, repsMax: 15, rest: 60,
-        alts: ['Mollets debout machine', 'Mollets à la presse', 'Mollets assis (soléaire)'] },
-    ],
-  },
-  push2: {
-    name: 'Push 2', subtitle: 'Priorité épaules',
-    muscles: 'Épaules · Pectoraux · Triceps', type: 'push',
-    heavy: [
-      { id: 'ohp', name: 'Développé militaire', sets: 3, repsMin: 6, repsMax: 8, rest: 180,
-        alts: ['Développé haltères assis', 'Presse épaules (machine)', 'Développé Smith overhead'] },
-    ],
-    iso: [
-      { id: 'bench-flat-2', name: 'Développé couché plat', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
-        alts: ['Développé haltères', 'Presse à pectoraux (machine)', 'Développé couché Smith machine'] },
-      { id: 'bench-incline-2', name: 'Développé incliné (variation)', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
-        alts: ['Presse inclinée (machine)', 'Développé incliné haltères', 'Développé incliné Smith machine'] },
-      { id: 'cable-fly', name: 'Écarté poulie', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
-        alts: ['Pec deck (machine papillon)', 'Écarté haltères', 'Écarté machine'] },
-      { id: 'tri-pushdown', name: 'Triceps poulie', sets: 3, repsMin: 15, repsMax: 20, rest: 60, superset: 'lat-raises-2',
-        alts: ['Skull crushers', 'Extension overhead haltère', 'Triceps poulie barre droite'] },
-      { id: 'lat-raises-2', name: 'Élévations latérales', sets: 3, repsMin: 15, repsMax: 20, rest: 75, superset: 'tri-pushdown',
-        alts: ['Élévations latérales poulie basse (unilatéral)', 'Élévations latérales machine', 'Élévations latérales haltères incliné'] },
-    ],
-  },
-  pull2: {
-    name: 'Pull 2', subtitle: 'Priorité horizontal',
-    muscles: 'Dos · Biceps · Arrière épaule', type: 'pull',
-    heavy: [
-      { id: 'barbell-row', name: 'Rowing barre', sets: 3, repsMin: 6, repsMax: 8, rest: 180,
-        alts: ['T-bar row', 'Rowing machine convergente', 'Rowing poulie basse prise large'] },
-    ],
-    iso: [
-      { id: 'seated-row', name: 'Tirage horizontal poulie', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
-        alts: ['Rowing machine prise neutre', 'Rowing haltère unilatéral', 'Rowing barre'] },
-      { id: 'lat-pulldown', name: 'Lat pulldown', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
-        alts: ['Traction assistée machine', 'Lat pulldown prise neutre', 'Pulldown unilatéral poulie'] },
-      { id: 'shrugs-back', name: 'Shrugs derrière le dos', sets: 3, repsMin: 6, repsMax: 10, rest: 120,
-        exception: 'lourd justifié — trapèzes',
-        alts: ['Shrugs haltères derrière le dos', 'Shrugs Smith arrière', 'Shrugs trap bar (barre hexagonale)'] },
-      { id: 'curl-bar-2', name: 'Curl barre strict', sets: 3, repsMin: 8, repsMax: 10, rest: 120,
-        exception: 'lourd justifié — semi-compound',
-        alts: ['Curl pupitre barre', 'Curl Larry Scott (machine)', 'Curl poulie basse barre EZ'] },
-      { id: 'hammer-cable', name: 'Curl marteau poulie', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
-        alts: ['Curl marteau haltères', 'Curl brachial poulie basse', 'Curl reverse barre'] },
-      { id: 'facepulls', name: 'Facepulls', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
-        alts: ['Reverse pec deck', 'Oiseau poulie haute (cable rear delt fly)', 'Band pull-apart'] },
-    ],
-  },
-  legs2: {
-    name: 'Legs 2', subtitle: 'Priorité ischio-jambiers & fessiers',
-    muscles: 'Ischio · Fessiers · Mollets', type: 'legs',
-    heavy: [
-      { id: 'hip-thrust', name: 'Hip thrusts', sets: 3, repsMin: 8, repsMax: 10, rest: 180,
-        alts: ['Hip thrust machine', 'Hip thrust Smith machine', 'Hip thrust unilatéral haltère'] },
-    ],
-    iso: [
-      { id: 'leg-curl', name: 'Leg curl', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
-        alts: ['Leg curl assis machine', 'Leg curl debout unilatéral', 'Nordic curl avec aide'] },
-      { id: 'leg-press', name: 'Presse à cuisses', sets: 3, repsMin: 15, repsMax: 20, rest: 90,
-        alts: ['Hack squat machine', 'Squat Smith machine', 'Presse à cuisses unilatérale'] },
-      { id: 'glute-kickbacks', name: 'Kickbacks fessiers', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
-        alts: ['Cable kickback (sangle cheville)', 'Glute drive (machine)', 'Single-leg hip thrust'] },
-      { id: 'calves-2', name: 'Mollets', sets: 3, repsMin: 15, repsMax: 20, rest: 60,
-        alts: ['Mollets debout machine', 'Mollets à la presse', 'Mollets assis (soléaire)'] },
-    ],
+  ppl3: {
+    id: 'ppl3',
+    name: 'PPL 3-jours (étirement)',
+    short: '3-day',
+    description: 'Approche stretch-mediated hypertrophy. Cycle classique Push / Pull / Legs / Repos. Volume modéré par séance, focus sur la position étirée de chaque exercice.',
+    cycle: ['p3-push', 'p3-pull', 'p3-legs', 'rest'],
+    sessions: {
+      'p3-pull': {
+        name: 'Pull', subtitle: 'Dos, arrière épaules, biceps',
+        muscles: 'Dos · Biceps · Arrière épaule', type: 'pull',
+        heavy: [],
+        iso: [
+          { id: 'p3-pulldown', name: 'Tirage poitrine (Lat Pulldown)', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
+            desc: 'Mouvement principal pour la largeur du dos. L\'idée : retenir la montée pour que le muscle travaille plus longtemps.',
+            alts: ['Tractions assistées (machine)', 'Lat pulldown prise neutre', 'Pulldown unilatéral'] },
+          { id: 'p3-pendlay', name: 'Tirage Pendlay surélevé (deficit)', sets: 3, repsMin: 12, repsMax: 15, rest: 120,
+            desc: 'Se pencher en avant, tirer une barre vers soi, debout sur un disque pour descendre plus bas et mieux étirer le dos.',
+            alts: ['Pendlay row classique (sans deficit)', 'Rowing barre', 'T-bar row'] },
+          { id: 'p3-chest-row', name: 'Tirage horizontal buste appuyé (Chest Supported Row)', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
+            desc: 'Alternative pour cibler le milieu du dos avec moins de contrainte sur les lombaires.',
+            alts: ['Rowing machine convergente', 'Tirage horizontal poulie buste calé', 'Seal row'] },
+          { id: 'p3-crossbody', name: 'Tirage croisé à un bras (Crossbody Lat Pullaround)', sets: 3, repsMin: 12, repsMax: 15, rest: 75,
+            desc: 'À genoux de côté face à la poulie, tirer un bras en diagonale. Étire le grand dorsal à son maximum.',
+            alts: ['Pullover poulie haute (corde)', 'Pullover machine', 'Pullover haltère'] },
+          { id: 'p3-cable-curl', name: 'Curl biceps poulie, dos à la machine', sets: 3, repsMin: 12, repsMax: 15, rest: 75,
+            desc: 'Se mettre dos à la machine et avancer un peu : le bras est tiré vers l\'arrière, étirant le biceps au maximum avant même de plier.',
+            alts: ['Curl pupitre haltère (Preacher Curl)', 'Curl incliné haltères', 'Curl barre strict'] },
+        ],
+      },
+      'p3-legs': {
+        name: 'Legs', subtitle: 'Jambes complètes',
+        muscles: 'Quads · Ischio · Fessiers · Mollets', type: 'legs',
+        heavy: [
+          { id: 'p3-squat', name: 'Squat classique barre', sets: 3, repsMin: 6, repsMax: 6, rest: 180,
+            desc: 'Exercice de base pour la force globale des jambes. Accent sur la poussée ferme des pieds dans le sol pour la stabilité.',
+            alts: ['Hack squat machine', 'Squat Smith machine', 'Front squat'] },
+        ],
+        iso: [
+          { id: 'p3-good-morning', name: 'Good Morning Smith machine', sets: 3, repsMin: 12, repsMax: 15, rest: 90,
+            desc: 'Barre sur les épaules, pousser les fesses en arrière sans trop plier les genoux pour bien étirer l\'arrière des cuisses.',
+            alts: ['Soulevé de terre roumain barre', 'Good morning barre libre', 'Hip hinge poulie basse'] },
+          { id: 'p3-leg-ext', name: 'Leg Extension (siège incliné)', sets: 3, repsMin: 12, repsMax: 15, rest: 60,
+            desc: 'Pour l\'avant des cuisses. Pencher le dossier en arrière permet de mieux étirer le haut de la cuisse.',
+            alts: ['Reverse Nordic Curl', 'Leg extension unilatéral', 'Sissy squat'] },
+          { id: 'p3-seated-leg-curl', name: 'Leg Curl assis', sets: 3, repsMin: 12, repsMax: 15, rest: 75,
+            desc: 'Assis, jambes pliées vers le bas. S\'avancer sur le siège et se pencher en avant étire beaucoup plus le muscle.',
+            alts: ['Leg curl couché', 'Leg curl debout unilatéral', 'Nordic curl'] },
+          { id: 'p3-toe-press', name: 'Mollets sur presse (Toe Press)', sets: 3, repsMin: 12, repsMax: 15, rest: 60,
+            desc: 'Assis sur la presse à cuisses, repousser la plateforme uniquement avec la pointe des pieds.',
+            alts: ['Mollets debout machine', 'Mollets assis (soléaire)', 'Mollets unilatéral haltère'] },
+          { id: 'p3-rdl', name: 'Soulevé de terre roumain barre', sets: 3, repsMin: 12, repsMax: 15, rest: 120,
+            desc: 'Mouvement classique pour l\'arrière des cuisses. Plus basique que les autres, mais très efficace.',
+            alts: ['RDL haltères', 'Good morning Smith', 'Hyperextension lestée'] },
+        ],
+      },
+      'p3-push': {
+        name: 'Push', subtitle: 'Pectoraux, épaules, triceps',
+        muscles: 'Pectoraux · Épaules · Triceps', type: 'push',
+        heavy: [
+          { id: 'p3-bench', name: 'Développé couché barre', sets: 3, repsMin: 4, repsMax: 8, rest: 180,
+            desc: 'Exercice principal pour la poitrine. Accent sur la poussée ferme des pieds dans le sol pour la stabilité.',
+            alts: ['Développé haltères', 'Presse à pectoraux machine', 'Smith machine bench'] },
+        ],
+        iso: [
+          { id: 'p3-cable-fly', name: 'Écarté poulie assis', sets: 3, repsMin: 12, repsMax: 15, rest: 75,
+            desc: 'Banc placé un peu en avant des poulies : les câbles tirent les bras très en arrière pour bien étirer les pectoraux.',
+            alts: ['Développé incliné haltères', 'Pec deck (machine papillon)', 'Écarté haltères'] },
+          { id: 'p3-incline-lat', name: 'Élévations latérales penché (Incline Laterals)', sets: 3, repsMin: 12, repsMax: 15, rest: 60,
+            desc: 'S\'incliner sur le côté en se tenant à un poteau ou un banc : le muscle reste sous tension dès le bas du mouvement.',
+            alts: ['Élévations latérales debout haltères', 'Élévations latérales poulie basse', 'Machine élévations latérales'] },
+          { id: 'p3-overhead-tri', name: 'Extensions triceps poulie overhead', sets: 3, repsMin: 12, repsMax: 15, rest: 75,
+            desc: 'Attraper la corde, se tourner dos à la machine, un pied devant. Le câble tire les bras vers le haut et l\'arrière, étirant parfaitement l\'arrière du bras avant de pousser en avant.',
+            alts: ['Extension overhead haltère', 'Skull crushers EZ', 'Triceps poulie haute (corde)'] },
+        ],
+      },
+    },
   },
 };
 
-// All unique exercises (for the YouTube links editor) — by id
+// ============================================================
+// MISTAKES — par famille de mouvement (exos similaires partagent)
+// ============================================================
+const MISTAKES = {
+  'bench': [
+    { type: 'form', text: 'Toucher la barre trop haut (sur le cou) au lieu du bas des pectoraux : moins de pec, plus d\'épaule avant.' },
+    { type: 'form', text: 'Coudes trop écartés à 90° du corps : compresse l\'épaule. Vise un angle de 70-75°.' },
+    { type: 'injury', text: 'Décoller les fesses du banc pour pousser plus lourd : hyperextension forcée du bas du dos.' },
+    { type: 'injury', text: 'Faire rebondir la barre sur la poitrine : risque pour le sternum + tu sautes la phase la plus dure.' },
+  ],
+  'incline-press': [
+    { type: 'form', text: 'Incline trop élevée (>45°) : devient un développé épaules, plus du haut de pec.' },
+    { type: 'form', text: 'Toucher trop bas sur les pecs : en incliné, vise le haut (zone clavicule).' },
+    { type: 'form', text: 'Hyper-cambrer pour transformer en couché plat : défait le but de l\'incliné.' },
+  ],
+  'chest-isolation': [
+    { type: 'form', text: 'Plier trop les coudes : transforme en mini-développé. Garde un angle stable de ~15°, jamais bras complètement tendus.' },
+    { type: 'form', text: 'Pousser au lieu de "rapprocher les mains" : concentre-toi sur la contraction du pec, pas la trajectoire.' },
+    { type: 'injury', text: 'Descendre trop bas et trop vite avec poids lourd : étire la capsule de l\'épaule au-delà de sa tolérance.' },
+  ],
+  'overhead-press': [
+    { type: 'form', text: 'Pas de verrouillage des coudes en haut : amplitude tronquée, perte du pic de contraction.' },
+    { type: 'form', text: 'Cambrer excessivement le bas du dos pour pousser plus lourd : tu fais un développé incliné sur tes lombaires.' },
+    { type: 'injury', text: 'Pousser derrière la nuque sans mobilité d\'épaule suffisante : stress sur la coiffe des rotateurs.' },
+  ],
+  'lateral-raise': [
+    { type: 'form', text: 'Monter au-dessus de l\'horizontale : le trapèze prend le relais, plus le deltoïde latéral.' },
+    { type: 'form', text: 'Balancer le buste pour lancer le poids : momentum tue le travail. Poids plus léger, exécution stricte.' },
+    { type: 'form', text: 'Coudes plus bas que les poignets : pour cibler le latéral, le coude doit guider la montée.' },
+  ],
+  'triceps-extension': [
+    { type: 'form', text: 'Laisser les coudes bouger (avancer ou s\'écarter) : isole moins le triceps. Coudes fixes.' },
+    { type: 'form', text: 'Amplitude tronquée en bas : descends jusqu\'à étirement complet du triceps avant de remonter.' },
+    { type: 'injury', text: 'Skull crushers : perte de contrôle = barre sur le front. Toujours avec un poids gérable, charge progressive.' },
+  ],
+  'pulldown': [
+    { type: 'form', text: 'Tirer avec les biceps en premier (épaules qui montent) : abaisse les omoplates AVANT de plier les bras.' },
+    { type: 'form', text: 'Pencher le buste trop en arrière : transforme en rowing. Reste vertical ou très léger recul (10-15°).' },
+    { type: 'form', text: 'Ne pas amener la barre jusqu\'au haut de la poitrine : amplitude tronquée.' },
+  ],
+  'pullover': [
+    { type: 'form', text: 'Plier les coudes en cours de route : c\'est un mouvement bras quasi tendus (15° de flexion), pas un curl.' },
+    { type: 'form', text: 'Mouvement qui vient des épaules au lieu du grand dorsal : pense à "ranger les bras vers les hanches".' },
+    { type: 'injury', text: 'Descendre trop bas derrière la tête (pour les pullovers haltère) avec une charge lourde : étire excessivement la capsule de l\'épaule.' },
+  ],
+  'horizontal-row': [
+    { type: 'form', text: 'Tirer avec les bras sans rétraction d\'omoplate : pense "serrer une pièce entre les omoplates" AVANT de tirer.' },
+    { type: 'form', text: 'Balancer le buste (kipping) pour finir la rep : momentum = pas de travail réel sur le dos.' },
+    { type: 'injury', text: 'Dos arrondi sous charge : compression des disques lombaires. Garde une cambrure naturelle, abdos engagés.' },
+  ],
+  'shrug': [
+    { type: 'form', text: 'Rouler les épaules (avant-arrière) : mouvement STRICTEMENT vertical (haut-bas), comme un mini saut d\'épaules.' },
+    { type: 'form', text: 'Amplitude trop courte : monte les épaules vers les oreilles, marque la contraction 1 sec en haut.' },
+    { type: 'form', text: 'Plier les coudes pour aider : laisse les bras pendre totalement relâchés.' },
+  ],
+  'biceps-curl': [
+    { type: 'form', text: 'Balancer le corps pour finir la rep : coudes collés au corps, immobiles. Poids plus léger si nécessaire.' },
+    { type: 'form', text: 'Ne pas étendre complètement les bras en bas : tu perds la moitié de l\'amplitude utile.' },
+    { type: 'form', text: 'Faire avancer les coudes en haut (vers le menton) : ça décharge le biceps. Coudes restent au corps.' },
+  ],
+  'hammer-curl': [
+    { type: 'form', text: 'Tourner les poignets pendant le mouvement : perd l\'effet brachial. Reste en prise neutre tout du long.' },
+    { type: 'form', text: 'Mêmes erreurs que le curl classique : pas de balancement, amplitude complète, coudes fixes.' },
+  ],
+  'rear-delt': [
+    { type: 'form', text: 'Tirer avec les coudes vers le haut au lieu de "ouvrir les bras vers l\'extérieur" : peu de deltoïde arrière.' },
+    { type: 'form', text: 'Buste pas assez penché (variations debout) : pour cibler l\'arrière, angle ~45° ou plus vers l\'avant.' },
+    { type: 'form', text: 'Hausser les trapèzes en fin de mouvement : relâche les épaules, isole bien l\'arrière du deltoïde.' },
+  ],
+  'squat': [
+    { type: 'form', text: 'Genoux qui rentrent vers l\'intérieur (valgus) : pousse activement les genoux vers l\'extérieur, alignés avec les pointes de pieds.' },
+    { type: 'form', text: 'Profondeur insuffisante (quart de squat) : descends au moins cuisses parallèles au sol.' },
+    { type: 'form', text: 'Talons qui décollent : problème de mobilité de cheville. Étire, ou utilise des chaussures plates / des cales.' },
+    { type: 'injury', text: 'Dos rond ou butt wink excessif en bas : compression des disques lombaires sous charge.' },
+  ],
+  'lunge': [
+    { type: 'form', text: 'Genou avant qui rentre vers l\'intérieur : aligne-le avec la pointe du pied.' },
+    { type: 'form', text: 'Buste trop penché en avant : tu te rapproches d\'un good morning, perds la cible quad/fessier.' },
+    { type: 'injury', text: 'Genou arrière qui claque au sol : effleure le sol, ne percute pas. Tape sans choc.' },
+  ],
+  'leg-press': [
+    { type: 'form', text: 'Pieds trop bas sur la plateforme : limite la flexion de hanche et stresse les genoux. Place-les milieu-haut.' },
+    { type: 'injury', text: 'Décoller les fessiers du dossier en bas du mouvement : met le bas du dos en hyperflexion sous charge (très risqué).' },
+    { type: 'injury', text: 'Verrouiller en hyperextension les genoux en haut : abîme l\'articulation à long terme.' },
+  ],
+  'leg-extension': [
+    { type: 'form', text: 'Mouvement trop rapide / "shoot" en haut : marque une pause 1 sec en contraction pour le pic de tension.' },
+    { type: 'form', text: 'Bassin qui se soulève du siège : tu sors de l\'isolation. Resserre les sangles, fixe-toi bien.' },
+    { type: 'injury', text: 'Charges très lourdes + amplitude max : stresse les ligaments du genou (croisé antérieur). Privilégie la contraction sur la charge.' },
+  ],
+  'hip-hinge': [
+    { type: 'form', text: 'Plier excessivement les genoux : ça devient un squat. Genoux légèrement fléchis et stables, le mouvement vient des hanches.' },
+    { type: 'form', text: 'Ne pas pousser les hanches en arrière : pense "fermer une porte avec les fesses". Le bassin recule, le dos reste droit.' },
+    { type: 'form', text: 'Rentrer le menton vers la poitrine : maintiens la colonne neutre, regard légèrement devant le sol.' },
+    { type: 'injury', text: 'Dos rond sous charge : blessure lombaire quasi garantie à terme. Si tu ne peux pas garder dos plat, baisse le poids.' },
+  ],
+  'hip-thrust': [
+    { type: 'form', text: 'Cambrer le bas du dos en haut pour monter plus haut : douleur lombaire. Contracte les abdos pour rester neutre.' },
+    { type: 'form', text: 'Pieds mal positionnés : si tu sens les quads ou les ischios plus que les fessiers, avance ou recule les pieds.' },
+    { type: 'form', text: 'Pas de pause + contraction en haut : c\'est là que se fait le travail. Squeeze fessiers 1 sec à chaque rep.' },
+  ],
+  'glute-isolation': [
+    { type: 'form', text: 'Cambrer le bas du dos pour aller plus haut avec la jambe : c\'est le lombaire qui termine, plus le fessier.' },
+    { type: 'form', text: 'Jambe qui monte au-dessus de l\'horizontale : passé ce point, le travail bascule sur le bas du dos.' },
+    { type: 'form', text: 'Tu dois SENTIR le fessier, pas les ischios. Pense "fessier qui pousse vers le haut", contracte avant de bouger.' },
+  ],
+  'leg-curl': [
+    { type: 'form', text: 'Mouvement saccadé + décharge en haut : reste sous tension constante, contrôle la descente (excentrique 2-3 sec).' },
+    { type: 'form', text: 'Bassin qui se soulève pour aider : fixe le pelvis sur le banc, ne triche pas en hyperextension lombaire.' },
+    { type: 'form', text: 'Amplitude tronquée : tend complètement la jambe en bas, fléchis au maximum en haut.' },
+  ],
+  'calves': [
+    { type: 'form', text: 'Amplitude trop courte : descends TRÈS bas (étirement maximum), monte TRÈS haut (sur la pointe).' },
+    { type: 'form', text: 'Rebond rapide sans pause : marque 1 sec en position étirée pour réellement charger le mollet.' },
+  ],
+};
+
+// Lookup table: exoId → famille de mouvement
+const EXO_FAMILIES = {
+  // ppl6
+  'bench-flat': 'bench', 'bench-flat-2': 'bench',
+  'bench-incline-1': 'incline-press', 'bench-incline-2': 'incline-press',
+  'db-fly': 'chest-isolation', 'cable-fly': 'chest-isolation',
+  'ohp-1': 'overhead-press', 'ohp': 'overhead-press',
+  'skull-1': 'triceps-extension', 'tri-pushdown': 'triceps-extension',
+  'lat-raises-1': 'lateral-raise', 'lat-raises-2': 'lateral-raise',
+  'pullup': 'pulldown', 'lat-pulldown': 'pulldown',
+  'straight-arm': 'pullover',
+  'meadows-row': 'horizontal-row', 'barbell-row': 'horizontal-row', 'seated-row': 'horizontal-row',
+  'shrugs': 'shrug', 'shrugs-back': 'shrug',
+  'curl-bar-1': 'biceps-curl', 'curl-bar-2': 'biceps-curl',
+  'hammer-curl': 'hammer-curl', 'hammer-cable': 'hammer-curl',
+  'rear-delt-fly': 'rear-delt', 'facepulls': 'rear-delt',
+  'squat': 'squat',
+  'lunges': 'lunge',
+  'leg-extension': 'leg-extension',
+  'rdl': 'hip-hinge',
+  'calves-1': 'calves', 'calves-2': 'calves',
+  'hip-thrust': 'hip-thrust',
+  'leg-curl': 'leg-curl',
+  'leg-press': 'leg-press',
+  'glute-kickbacks': 'glute-isolation',
+  // ppl3
+  'p3-pulldown': 'pulldown',
+  'p3-pendlay': 'horizontal-row', 'p3-chest-row': 'horizontal-row',
+  'p3-crossbody': 'pullover',
+  'p3-cable-curl': 'biceps-curl',
+  'p3-squat': 'squat',
+  'p3-good-morning': 'hip-hinge', 'p3-rdl': 'hip-hinge',
+  'p3-leg-ext': 'leg-extension',
+  'p3-seated-leg-curl': 'leg-curl',
+  'p3-toe-press': 'calves',
+  'p3-bench': 'bench',
+  'p3-cable-fly': 'chest-isolation',
+  'p3-incline-lat': 'lateral-raise',
+  'p3-overhead-tri': 'triceps-extension',
+};
+
+// All unique (programId, sessionId, exo) triples for the YouTube links editor
 function allExercises() {
   const out = [];
   const seen = new Set();
-  for (const sid of Object.keys(SESSIONS)) {
-    const s = SESSIONS[sid];
-    for (const e of [...s.heavy, ...s.iso]) {
-      if (!seen.has(e.id)) { seen.add(e.id); out.push({ ...e, sessionName: s.name }); }
+  for (const pid of Object.keys(PROGRAMS)) {
+    const p = PROGRAMS[pid];
+    for (const sid of Object.keys(p.sessions)) {
+      const s = p.sessions[sid];
+      for (const e of [...(s.heavy || []), ...(s.iso || [])]) {
+        if (!seen.has(e.id)) { seen.add(e.id); out.push({ ...e, programId: pid, programName: p.short, sessionName: s.name }); }
+      }
     }
   }
   return out;
+}
+
+// Locate an exo by id across all programs (used when only id is known)
+function findExoAnywhere(exoId) {
+  for (const pid of Object.keys(PROGRAMS)) {
+    const p = PROGRAMS[pid];
+    for (const sid of Object.keys(p.sessions)) {
+      const s = p.sessions[sid];
+      const e = [...(s.heavy || []), ...(s.iso || [])].find(x => x.id === exoId);
+      if (e) return { exo: e, programId: pid, sessionId: sid };
+    }
+  }
+  return null;
 }
 
 // ============================================================
 // STORAGE
 // ============================================================
 const Store = (function() {
-  // In-memory fallback so the app works even when localStorage is unavailable
-  // (sandboxed iframes, private mode quirks, etc.). Writes always succeed in
-  // memory; we also try to persist to localStorage. Reads prefer localStorage,
-  // then memory.
   const mem = {};
   return {
     get(k, def) {
@@ -429,15 +717,31 @@ const Store = (function() {
   };
 })();
 
-// State persisted:
-// - ppl.cursor: index in CYCLE of the NEXT session to do (0..7)
-// - ppl.history: [ { date, sessionId, exercises: { exoId: { sets: [{weight, reps, done}], note } } } ]
-// - ppl.current: { sessionId, startedAt, exercises: {...} } — in-progress workout, null if none
+// Persisted state:
+// - ppl.activeProgram: 'ppl6' | 'ppl3'
+// - ppl.cursors: { [programId]: number } — position in each program's cycle
+// - ppl.history: [ { date, programId, sessionId, exercises } ]
+// - ppl.current: { programId, sessionId, startedAt, exercises } | null
 // - ppl.youtube: { exoId: url }
-// - ppl.customRest: { exoId: seconds } — overrides default
+// - ppl.customRest: { exoId: seconds }
 
-function getCursor() { return Store.get('ppl.cursor', 0); }
-function setCursor(i) { Store.set('ppl.cursor', ((i % 8) + 8) % 8); }
+function getActiveProgramId() { return Store.get('ppl.activeProgram', 'ppl6'); }
+function setActiveProgramId(id) { if (PROGRAMS[id]) Store.set('ppl.activeProgram', id); }
+function getActiveProgram() { return PROGRAMS[getActiveProgramId()] || PROGRAMS.ppl6; }
+
+function getCursor(programId) {
+  const pid = programId || getActiveProgramId();
+  const cursors = Store.get('ppl.cursors', {});
+  return cursors[pid] || 0;
+}
+function setCursor(i, programId) {
+  const pid = programId || getActiveProgramId();
+  const cursors = Store.get('ppl.cursors', {});
+  const p = PROGRAMS[pid] || PROGRAMS.ppl6;
+  cursors[pid] = ((i % p.cycle.length) + p.cycle.length) % p.cycle.length;
+  Store.set('ppl.cursors', cursors);
+}
+
 function getHistory() { return Store.get('ppl.history', []); }
 function setHistory(h) { Store.set('ppl.history', h); }
 function getCurrent() { return Store.get('ppl.current', null); }
@@ -452,8 +756,7 @@ function restFor(exo) {
   return c[exo.id] != null ? c[exo.id] : exo.rest;
 }
 
-// Find last completed instance of an exercise in history (for "last time" display).
-// If `variant` is set, only matches sessions where the same variant was used.
+// Last completed instance of an exoId (across all programs), optionally filtered by variant
 function lastTimeFor(exoId, variant) {
   const h = getHistory();
   const wantVariant = variant || null;
@@ -462,16 +765,32 @@ function lastTimeFor(exoId, variant) {
     if (!ex || !ex.sets || !ex.sets.some(s => s.done)) continue;
     const exVariant = ex.variant || null;
     if (exVariant !== wantVariant) continue;
-    return { date: h[i].date, sets: ex.sets.filter(s => s.done), variant: ex.variant };
+    return { date: h[i].date, sets: ex.sets.filter(s => s.done), variant: ex.variant, programId: h[i].programId };
   }
   return null;
+}
+
+// One-time migration from older single-program structure
+function migrate() {
+  try {
+    const oldCursorRaw = localStorage.getItem('ppl.cursor');
+    if (oldCursorRaw !== null && !Store.get('ppl.cursors', null)) {
+      Store.set('ppl.cursors', { ppl6: JSON.parse(oldCursorRaw) || 0 });
+      localStorage.removeItem('ppl.cursor');
+    }
+  } catch {}
+  const cur = getCurrent();
+  if (cur && !cur.programId) { cur.programId = 'ppl6'; setCurrent(cur); }
+  const h = getHistory();
+  let changed = false;
+  for (const e of h) if (!e.programId) { e.programId = 'ppl6'; changed = true; }
+  if (changed) setHistory(h);
 }
 
 // ============================================================
 // VIEW STATE
 // ============================================================
 let view = { name: 'home' };
-
 function nav(v) { view = v; window.scrollTo(0, 0); render(); }
 
 // ============================================================
@@ -483,38 +802,38 @@ function frDate(iso) {
   return d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
 }
 function fmtTime(s) { const m = Math.floor(s / 60); const r = s % 60; return `${m}:${String(r).padStart(2,'0')}`; }
-function el(tag, attrs = {}, ...children) {
+function el(tag, attrs, ...children) {
+  attrs = attrs || {};
   const e = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs)) {
+    if (v == null) continue;
     if (k === 'class') e.className = v;
     else if (k === 'style') e.setAttribute('style', v);
     else if (k.startsWith('on')) e.addEventListener(k.slice(2), v);
     else if (k === 'html') e.innerHTML = v;
-    else if (v != null) e.setAttribute(k, v);
+    else e.setAttribute(k, v);
   }
   for (const c of children.flat()) {
     if (c == null || c === false) continue;
-    e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+    e.appendChild(typeof c === 'string' || typeof c === 'number' ? document.createTextNode(String(c)) : c);
   }
   return e;
 }
 function badgeClass(type) { return 'badge-' + type; }
 function dayClass(type) { return 'day-' + type; }
-
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
-
 function toast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
   clearTimeout(toast._h);
-  toast._h = setTimeout(() => t.classList.remove('show'), 1700);
+  toast._h = setTimeout(() => t.classList.remove('show'), 1800);
 }
 
 // ============================================================
-// AUDIO BEEP (Web Audio, requires user gesture)
+// AUDIO BEEP
 // ============================================================
 let audioCtx = null;
 function beep() {
@@ -536,21 +855,17 @@ function beep() {
 }
 
 // ============================================================
-// TIMER (singleton across renders)
+// TIMER
 // ============================================================
 const Timer = {
-  remaining: 0,
-  total: 0,
-  running: false,
-  exoId: null,
-  interval: null,
+  remaining: 0, total: 0, running: false, exoId: null, interval: null,
   start(seconds, exoId) {
     this.stop();
     this.total = seconds; this.remaining = seconds; this.running = true; this.exoId = exoId;
     this.interval = setInterval(() => {
       this.remaining--;
-      if (this.remaining <= 0) { this.finish(); }
-      else { this.updateUI(); }
+      if (this.remaining <= 0) this.finish();
+      else this.updateUI();
     }, 1000);
     this.updateUI();
   },
@@ -576,28 +891,32 @@ const Timer = {
 // ============================================================
 // CURRENT WORKOUT HELPERS
 // ============================================================
-function ensureCurrent(sessionId) {
+function sessionExos(programId, sessionId) {
+  const p = PROGRAMS[programId]; if (!p) return [];
+  const s = p.sessions[sessionId]; if (!s) return [];
+  return [...(s.heavy || []), ...(s.iso || [])];
+}
+
+function ensureCurrent(programId, sessionId) {
   let cur = getCurrent();
-  if (!cur || cur.sessionId !== sessionId) {
-    const s = SESSIONS[sessionId];
+  if (!cur || cur.programId !== programId || cur.sessionId !== sessionId) {
     const exos = {};
-    for (const e of [...s.heavy, ...s.iso]) {
+    for (const e of sessionExos(programId, sessionId)) {
       exos[e.id] = { sets: Array.from({length: e.sets}, () => ({ weight: '', reps: '', done: false })), note: '' };
     }
-    cur = { sessionId, startedAt: todayISO(), exercises: exos };
+    cur = { programId, sessionId, startedAt: todayISO(), exercises: exos };
     setCurrent(cur);
   }
-  // backfill last-time prefills if user hasn't typed yet — scoped by variant
-  for (const exo of [...SESSIONS[sessionId].heavy, ...SESSIONS[sessionId].iso]) {
-    const state = cur.exercises[exo.id];
-    if (!state) continue;
+  // backfill last-time weight prefills
+  for (const exo of sessionExos(programId, sessionId)) {
+    const state = cur.exercises[exo.id]; if (!state) continue;
     const variant = state.variant || null;
     const last = lastTimeFor(exo.id, variant);
     if (last) {
       state.sets.forEach((s, idx) => {
         if (s.weight === '' && !s.done) {
           const lastSet = last.sets[idx] || last.sets[last.sets.length - 1];
-          if (lastSet) { s.weight = lastSet.weight; }
+          if (lastSet) s.weight = lastSet.weight;
         }
       });
     }
@@ -611,95 +930,122 @@ function exerciseAllDone(cur, exoId) {
   const e = cur.exercises[exoId];
   return e && e.sets.length > 0 && e.sets.every(s => s.done);
 }
-
 function getProgressionHint(cur, exo) {
   if (!cur || !cur.exercises) return null;
   const e = cur.exercises[exo.id];
   if (!e || !e.sets.every(s => s.done)) return null;
   const allTop = e.sets.every(s => Number(s.reps) >= exo.repsMax);
-  return allTop ? `↑ Toutes les séries au max — augmente la charge la prochaine fois` : null;
+  return allTop ? '↑ Toutes les séries au max — augmente la charge la prochaine fois' : null;
 }
-
 function finishSession() {
   const cur = getCurrent();
   if (!cur) return;
   const h = getHistory();
-  h.push({ date: cur.startedAt, sessionId: cur.sessionId, exercises: cur.exercises });
+  h.push({ date: cur.startedAt, programId: cur.programId, sessionId: cur.sessionId, exercises: cur.exercises });
   setHistory(h);
-  // advance cursor: position currently is "next session to do" — find current session position
-  const curIdx = CYCLE.indexOf(cur.sessionId);
-  if (curIdx !== -1) {
-    let next = (curIdx + 1) % 8;
-    // skip rest days for "next" suggestion
-    while (CYCLE[next] === 'rest') next = (next + 1) % 8;
-    setCursor(next);
+  const p = PROGRAMS[cur.programId];
+  if (p) {
+    const curIdx = p.cycle.indexOf(cur.sessionId);
+    if (curIdx !== -1) {
+      let next = (curIdx + 1) % p.cycle.length;
+      while (p.cycle[next] === 'rest') next = (next + 1) % p.cycle.length;
+      setCursor(next, cur.programId);
+    }
   }
   setCurrent(null);
   toast('Séance enregistrée');
   nav({ name: 'home' });
 }
 
+// Try to start a new session — prompt if a different cur is in progress
+function tryStart(programId, sessionId) {
+  const cur = getCurrent();
+  if (cur && (cur.programId !== programId || cur.sessionId !== sessionId)) {
+    const p = PROGRAMS[cur.programId];
+    const sname = p && p.sessions[cur.sessionId] ? p.sessions[cur.sessionId].name : cur.sessionId;
+    if (!confirm(`Tu as une séance en cours : ${sname} (${p ? p.short : '?'}). L'abandonner pour démarrer une nouvelle ?`)) return;
+    setCurrent(null);
+  }
+  ensureCurrent(programId, sessionId);
+  setActiveProgramId(programId);
+  nav({ name: 'session', programId, sessionId });
+}
+
 // ============================================================
 // VIEWS
 // ============================================================
 function viewHome() {
-  const cursor = getCursor();
-  const todayId = CYCLE[cursor];
-  const todaySession = SESSIONS[todayId] || null;
+  const program = getActiveProgram();
+  const cursor = getCursor(program.id);
+  const todayId = program.cycle[cursor];
+  const todaySession = todayId === 'rest' ? null : program.sessions[todayId];
   const cur = getCurrent();
+  const curProgram = cur ? PROGRAMS[cur.programId] : null;
+  const curSession = curProgram ? curProgram.sessions[cur.sessionId] : null;
 
-  return el('div', {},
+  return el('div', null,
     el('div', { class: 'topbar' },
-      el('h1', {}, 'PPL Programme'),
+      el('h1', null, 'PPL Programme'),
       el('div', { class: 'right' },
         el('button', { class: 'icon-btn', onclick: () => nav({ name: 'links' }) }, '▶ Liens'),
         el('button', { class: 'icon-btn', onclick: () => nav({ name: 'history' }) }, '📅 Historique'),
       ),
     ),
-    el('div', { class: 'today' },
-      el('div', { class: 'label' }, cur ? 'Séance en cours' : 'Prochaine séance'),
-      el('div', { class: 'row' },
-        el('div', { class: 'info' },
-          el('div', { class: 'title' }, cur ? SESSIONS[cur.sessionId].name : (todaySession ? todaySession.name : 'Repos')),
-          el('div', { class: 'sub' }, cur ? SESSIONS[cur.sessionId].muscles : (todaySession ? todaySession.muscles : 'Récupération')),
-        ),
-        cur
-          ? el('button', { onclick: () => nav({ name: 'session', sessionId: cur.sessionId }) }, 'Reprendre →')
-          : (todaySession
-              ? el('button', { onclick: () => { ensureCurrent(todayId); nav({ name: 'session', sessionId: todayId }); } }, 'Commencer →')
-              : el('button', { onclick: () => { const next = (cursor + 1) % 8; setCursor(next); render(); } }, 'Passer →')),
-      ),
+    el('button', { class: 'program-pill', onclick: () => nav({ name: 'programs' }) },
+      el('span', { class: 'lbl' }, 'Programme'),
+      el('span', { class: 'name' }, program.name),
+      el('span', { class: 'chev' }, '▾'),
     ),
+    cur && curSession
+      ? el('div', { class: 'today' },
+          el('div', { class: 'label' }, 'Séance en cours'),
+          el('div', { class: 'row' },
+            el('div', { class: 'info' },
+              el('div', { class: 'title' }, curSession.name, el('span', { class: 'prog-tag' }, curProgram.short)),
+              el('div', { class: 'sub' }, curSession.muscles),
+            ),
+            el('button', { onclick: () => { setActiveProgramId(cur.programId); nav({ name: 'session', programId: cur.programId, sessionId: cur.sessionId }); } }, 'Reprendre →'),
+          ),
+        )
+      : el('div', { class: 'today' },
+          el('div', { class: 'label' }, 'Prochaine séance'),
+          el('div', { class: 'row' },
+            el('div', { class: 'info' },
+              el('div', { class: 'title' }, todaySession ? todaySession.name : 'Repos'),
+              el('div', { class: 'sub' }, todaySession ? todaySession.muscles : 'Jour de récupération'),
+            ),
+            todaySession
+              ? el('button', { onclick: () => tryStart(program.id, todayId) }, 'Commencer →')
+              : el('button', { onclick: () => { const next = (cursor + 1) % program.cycle.length; setCursor(next, program.id); render(); } }, 'Passer →'),
+          ),
+        ),
     el('div', { class: 'section-label' }, 'Cycle'),
-    el('div', { class: 'cycle-bar' },
-      CYCLE.map((sid, i) => {
-        const isPast = i < cursor && !(cur && CYCLE.indexOf(cur.sessionId) === i);
-        const s = sid === 'rest' ? null : SESSIONS[sid];
-        const cls = ['cycle-day', sid === 'rest' ? 'day-rest' : dayClass(s.type)];
+    el('div', { class: 'cycle-bar', style: `grid-template-columns: repeat(${program.cycle.length}, 1fr)` },
+      program.cycle.map((sid, i) => {
+        const isRest = sid === 'rest';
+        const s = isRest ? null : program.sessions[sid];
+        const cls = ['cycle-day', isRest ? 'day-rest' : dayClass(s.type)];
         if (i === cursor) cls.push('active');
         return el('div', {
           class: cls.join(' '),
           onclick: () => {
-            if (sid === 'rest') { setCursor(i); render(); return; }
-            ensureCurrent(sid);
-            // align cursor on this session for clarity
-            setCursor(i);
-            nav({ name: 'session', sessionId: sid });
+            if (isRest) { setCursor(i, program.id); render(); return; }
+            tryStart(program.id, sid);
           },
         },
           el('div', { class: 'day-num' }, 'J' + (i + 1)),
-          el('div', { class: 'day-name' }, sid === 'rest' ? 'Repos' : SESSIONS[sid].name),
+          el('div', { class: 'day-name' }, isRest ? 'Repos' : s.name),
         );
       }),
     ),
     el('div', { class: 'legend' },
-      el('div', { class: 'legend-item' }, el('div', { class: 'legend-dot', style: 'background:#993C1D' }), 'Lourd 6-8'),
-      el('div', { class: 'legend-item' }, el('div', { class: 'legend-dot', style: 'background:#185FA5' }), 'Isolation 12-20'),
+      el('div', { class: 'legend-item' }, el('div', { class: 'legend-dot', style: 'background:#993C1D' }), 'Lourd'),
+      el('div', { class: 'legend-item' }, el('div', { class: 'legend-dot', style: 'background:#185FA5' }), 'Isolation / stretch'),
     ),
     el('div', { class: 'section-label' }, 'Toutes les séances'),
-    Object.keys(SESSIONS).map(sid => {
-      const s = SESSIONS[sid];
-      return el('div', { class: 'session-card', onclick: () => { ensureCurrent(sid); nav({ name: 'session', sessionId: sid }); } },
+    Object.keys(program.sessions).map(sid => {
+      const s = program.sessions[sid];
+      return el('div', { class: 'session-card', onclick: () => tryStart(program.id, sid) },
         el('div', { class: 'badge ' + badgeClass(s.type) }, s.name),
         el('div', { class: 'info' },
           el('div', { class: 'title' }, s.subtitle),
@@ -711,15 +1057,57 @@ function viewHome() {
   );
 }
 
-function exoRow(sessionId, exo, block) {
+function viewPrograms() {
+  const activeId = getActiveProgramId();
+  return el('div', null,
+    el('div', { class: 'topbar' },
+      el('button', { class: 'back', onclick: () => nav({ name: 'home' }) }, '‹ Accueil'),
+      el('h2', null, 'Programmes'),
+      el('div', { style: 'width:80px' }),
+    ),
+    el('div', { class: 'section-label' }, 'Choisis ton programme'),
+    Object.keys(PROGRAMS).map(pid => {
+      const p = PROGRAMS[pid];
+      const isActive = pid === activeId;
+      const sessionList = Object.keys(p.sessions).map(sid => p.sessions[sid]);
+      const totalExos = sessionList.reduce((acc, s) => acc + (s.heavy || []).length + (s.iso || []).length, 0);
+      const sessionsPerWeek = p.cycle.filter(c => c !== 'rest').length;
+      return el('div', { class: 'program-card' + (isActive ? ' active' : ''), onclick: () => {
+        setActiveProgramId(pid);
+        toast('Programme actif : ' + p.name);
+        nav({ name: 'home' });
+      } },
+        el('div', { class: 'top' },
+          isActive ? el('span', { class: 'star' }, '★') : null,
+          el('div', { class: 'name' }, p.name),
+          isActive ? el('span', { class: 'active-tag' }, 'Actif') : null,
+        ),
+        el('div', { class: 'desc' }, p.description),
+        el('div', { class: 'stats' },
+          el('div', { class: 'stat' }, el('strong', null, sessionList.length), ' séances types'),
+          el('div', { class: 'stat' }, el('strong', null, totalExos), ' exos uniques'),
+          el('div', { class: 'stat' }, el('strong', null, sessionsPerWeek), ' / ' + p.cycle.length + ' jours'),
+        ),
+        el('div', { class: 'pills' },
+          sessionList.map(s => el('span', { class: 'pill ' + badgeClass(s.type) }, s.name)),
+        ),
+      );
+    }),
+    el('div', { style: 'margin-top:20px;font-size:12px;color:var(--text-3);text-align:center;line-height:1.5;padding:0 10px' },
+      'Reste sur un programme au minimum 6-8 semaines avant de switcher, sinon tu ne peux pas juger si ça progresse.'),
+  );
+}
+
+function exoRow(programId, sessionId, exo, block) {
   const cur = getCurrent();
-  const exState = cur && cur.exercises && cur.exercises[exo.id];
+  const sameSession = cur && cur.programId === programId && cur.sessionId === sessionId;
+  const exState = sameSession && cur.exercises ? cur.exercises[exo.id] : null;
   const variant = exState && exState.variant;
   const effectiveName = variant || exo.name;
-  const done = cur && cur.sessionId === sessionId && exerciseAllDone(cur, exo.id);
+  const done = sameSession && exerciseAllDone(cur, exo.id);
   const yt = getYoutube()[exo.id];
   const hasAlts = exo.alts && exo.alts.length > 0;
-  return el('div', { class: 'exo-card' + (done ? ' done' : ''), onclick: () => nav({ name: 'exo', sessionId, exoId: exo.id }) },
+  return el('div', { class: 'exo-card' + (done ? ' done' : ''), onclick: () => nav({ name: 'exo', programId, sessionId, exoId: exo.id }) },
     el('div', { class: 'check' }, '✓'),
     el('div', { class: 'name' },
       el('div', { class: 'label', html: escapeHtml(effectiveName)
@@ -728,26 +1116,26 @@ function exoRow(sessionId, exo, block) {
         + (exo.superset ? `<span class="superset-tag">superset</span>` : '')
         + (variant ? `<span class="superset-tag">↔ ${escapeHtml(exo.name)}</span>` : '')
       }),
-      exo.note ? el('div', { class: 'meta' }, exo.note) : null,
     ),
-    el('div', { class: 'sets-tag ' + block }, `${exo.sets} × ${exo.repsMin}-${exo.repsMax}`),
+    el('div', { class: 'sets-tag ' + block }, `${exo.sets} × ${exo.repsMin}${exo.repsMax !== exo.repsMin ? '-' + exo.repsMax : ''}`),
     hasAlts ? el('button', {
       class: 'swap-btn' + (variant ? ' has-variant' : ''),
-      title: 'Changer d\'exercice',
-      onclick: (e) => { e.stopPropagation(); nav({ name: 'swap', sessionId, exoId: exo.id }); },
+      title: 'Remplacer cet exercice',
+      onclick: (e) => { e.stopPropagation(); nav({ name: 'swap', programId, sessionId, exoId: exo.id }); },
     }, '↔') : null,
     el('div', { class: 'yt' + (yt ? ' has-link' : '') }, yt ? '▶' : '○'),
   );
 }
 
-function viewSession(sessionId) {
-  const s = SESSIONS[sessionId];
-  if (!s) return el('div', {}, 'Séance inconnue');
-  ensureCurrent(sessionId);
+function viewSession(programId, sessionId) {
+  const p = PROGRAMS[programId]; if (!p) return el('div', null, 'Programme inconnu');
+  const s = p.sessions[sessionId]; if (!s) return el('div', null, 'Séance inconnue');
+  ensureCurrent(programId, sessionId);
 
-  const allDone = [...s.heavy, ...s.iso].every(e => exerciseAllDone(getCurrent(), e.id));
+  const exos = sessionExos(programId, sessionId);
+  const allDone = exos.length > 0 && exos.every(e => exerciseAllDone(getCurrent(), e.id));
 
-  return el('div', {},
+  return el('div', null,
     el('div', { class: 'topbar' },
       el('button', { class: 'back', onclick: () => nav({ name: 'home' }) }, '‹ Accueil'),
       el('div', { class: 'right' },
@@ -757,25 +1145,27 @@ function viewSession(sessionId) {
     el('div', { class: 'session-header' },
       el('div', { class: 'row' },
         el('span', { class: 'badge ' + badgeClass(s.type) }, s.name),
+        el('span', { class: 'prog-tag' }, p.short),
       ),
       el('div', { class: 'title' }, s.subtitle),
       el('div', { class: 'sub' }, s.muscles),
     ),
-    el('div', { class: 'block-label heavy' }, el('div', { class: 'dot' }), 'Bloc lourd'),
-    s.heavy.map(e => exoRow(sessionId, e, 'heavy')),
-    el('div', { class: 'block-label iso' }, el('div', { class: 'dot' }), 'Bloc isolation'),
-    s.iso.map(e => exoRow(sessionId, e, e.exception ? 'heavy' : 'iso')),
+    (s.heavy && s.heavy.length > 0) ? el('div', { class: 'block-label heavy' }, el('div', { class: 'dot' }), 'Bloc lourd') : null,
+    (s.heavy || []).map(e => exoRow(programId, sessionId, e, 'heavy')),
+    (s.iso && s.iso.length > 0) ? el('div', { class: 'block-label iso' }, el('div', { class: 'dot' }), s.heavy && s.heavy.length > 0 ? 'Bloc isolation' : 'Bloc principal') : null,
+    (s.iso || []).map(e => exoRow(programId, sessionId, e, e.exception ? 'heavy' : 'iso')),
     el('button', { class: 'action-btn', disabled: !allDone ? 'disabled' : null, onclick: () => { if (confirm('Terminer la séance et l\'enregistrer dans l\'historique ?')) finishSession(); } },
       allDone ? '✓ Terminer la séance' : 'Termine tous les exercices pour valider'),
   );
 }
 
-function viewExo(sessionId, exoId) {
-  const s = SESSIONS[sessionId];
-  const exo = [...s.heavy, ...s.iso].find(e => e.id === exoId);
-  if (!exo) return el('div', {}, 'Exercice inconnu');
+function viewExo(programId, sessionId, exoId) {
+  const p = PROGRAMS[programId]; if (!p) return el('div', null, 'Programme inconnu');
+  const s = p.sessions[sessionId]; if (!s) return el('div', null, 'Séance inconnue');
+  const exo = sessionExos(programId, sessionId).find(e => e.id === exoId);
+  if (!exo) return el('div', null, 'Exercice inconnu');
 
-  const cur = ensureCurrent(sessionId);
+  const cur = ensureCurrent(programId, sessionId);
   const exState = cur.exercises[exoId];
   const variant = exState.variant || null;
   const effectiveName = variant || exo.name;
@@ -784,41 +1174,27 @@ function viewExo(sessionId, exoId) {
   const restSec = restFor(exo);
   const hint = getProgressionHint(cur, exo);
 
-  function updateSet(idx, field, val) {
-    exState.sets[idx][field] = val;
-    setCurrent(cur);
-  }
+  function updateSet(idx, field, val) { exState.sets[idx][field] = val; setCurrent(cur); }
   function toggleDone(idx) {
-    const s = exState.sets[idx];
-    s.done = !s.done;
+    const sset = exState.sets[idx];
+    sset.done = !sset.done;
     setCurrent(cur);
-    if (s.done && (s.weight !== '' || s.reps !== '')) {
-      Timer.start(restSec, exoId);
-    }
+    if (sset.done && (sset.weight !== '' || sset.reps !== '')) Timer.start(restSec, exoId);
     render();
   }
   function changeRest(delta) {
     const cr = getCustomRest();
     const c = restFor(exo);
-    const next = Math.max(15, Math.min(600, c + delta));
-    cr[exoId] = next;
+    cr[exoId] = Math.max(15, Math.min(600, c + delta));
     setCustomRest(cr);
-    render();
-  }
-  function setVariant(v) {
-    if (v) exState.variant = v;
-    else delete exState.variant;
-    // Reset prefilled (undone) sets so they re-fill from the new variant's history
-    exState.sets = exState.sets.map(s => s.done ? s : { weight: '', reps: '', done: false });
-    setCurrent(cur);
     render();
   }
 
   return el('div', { class: 'exo-detail' },
     el('div', { class: 'topbar' },
-      el('button', { class: 'back', onclick: () => nav({ name: 'session', sessionId }) }, '‹ Séance'),
+      el('button', { class: 'back', onclick: () => nav({ name: 'session', programId, sessionId }) }, '‹ Séance'),
       exo.superset
-        ? el('button', { class: 'icon-btn primary', onclick: () => nav({ name: 'exo', sessionId, exoId: exo.superset }) }, 'Superset ↔')
+        ? el('button', { class: 'icon-btn primary', onclick: () => nav({ name: 'exo', programId, sessionId, exoId: exo.superset }) }, 'Superset ↔')
         : null,
     ),
     el('div', { class: 'header' },
@@ -827,13 +1203,15 @@ function viewExo(sessionId, exoId) {
         + (exo.exception ? `<span class="except-tag">${escapeHtml(exo.exception)}</span>` : '')
         + (exo.superset ? `<span class="superset-tag">superset</span>` : '')
       }),
-      el('div', { class: 'target' }, 'Objectif : ', el('strong', {}, `${exo.sets} × ${exo.repsMin}-${exo.repsMax} reps`)),
-      variant ? el('div', { class: 'variant-replaces' }, '↔ Remplace ' + exo.name) : null,
+      el('div', { class: 'target' }, 'Objectif : ', el('strong', null, `${exo.sets} × ${exo.repsMin}${exo.repsMax !== exo.repsMin ? '-' + exo.repsMax : ''} reps`)),
+      variant ? el('div', { class: 'variant-replaces' }, '↔ Remplace : ' + exo.name) : null,
+      exo.desc ? el('div', { class: 'desc' }, exo.desc) : null,
       exo.note ? el('div', { class: 'note' }, exo.note) : null,
+      renderMistakes(exo),
       exo.alts && exo.alts.length > 0 ? el('button', {
         class: 'yt-btn',
         style: 'margin-right:6px',
-        onclick: () => nav({ name: 'swap', sessionId, exoId }),
+        onclick: () => nav({ name: 'swap', programId, sessionId, exoId }),
       }, '↔ Changer d\'exercice') : null,
       el('button', { class: 'yt-btn' + (yt ? ' has-link' : ''), onclick: () => {
         if (yt) { window.open(yt, '_blank'); }
@@ -850,15 +1228,15 @@ function viewExo(sessionId, exoId) {
     ) : null,
     el('div', { class: 'sets-block' },
       el('h3', { style: 'font-size:13px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;font-weight:600;' }, 'Séries'),
-      exState.sets.map((s, idx) => el('div', { class: 'set-row' + (s.done ? ' done' : '') },
+      exState.sets.map((sset, idx) => el('div', { class: 'set-row' + (sset.done ? ' done' : '') },
         el('div', { class: 'num' }, String(idx + 1)),
         el('div', { class: 'input-wrap' },
-          el('input', { type: 'number', inputmode: 'decimal', step: '0.5', value: s.weight, placeholder: 'kg',
+          el('input', { type: 'number', inputmode: 'decimal', step: '0.5', value: sset.weight, placeholder: 'kg',
             oninput: (e) => updateSet(idx, 'weight', e.target.value) }),
           el('span', { class: 'unit' }, 'kg'),
         ),
         el('div', { class: 'input-wrap' },
-          el('input', { type: 'number', inputmode: 'numeric', value: s.reps, placeholder: 'reps',
+          el('input', { type: 'number', inputmode: 'numeric', value: sset.reps, placeholder: 'reps',
             oninput: (e) => updateSet(idx, 'reps', e.target.value) }),
           el('span', { class: 'unit' }, 'reps'),
         ),
@@ -896,29 +1274,28 @@ function viewExo(sessionId, exoId) {
   );
 }
 
-function viewSwap(sessionId, exoId) {
-  const s = SESSIONS[sessionId];
-  if (!s) return el('div', {}, 'Séance inconnue');
-  const exo = [...s.heavy, ...s.iso].find(e => e.id === exoId);
-  if (!exo) return el('div', {}, 'Exercice inconnu');
+function viewSwap(programId, sessionId, exoId) {
+  const p = PROGRAMS[programId]; if (!p) return el('div', null, 'Programme inconnu');
+  const s = p.sessions[sessionId]; if (!s) return el('div', null, 'Séance inconnue');
+  const exo = sessionExos(programId, sessionId).find(e => e.id === exoId);
+  if (!exo) return el('div', null, 'Exercice inconnu');
 
-  const cur = ensureCurrent(sessionId);
+  const cur = ensureCurrent(programId, sessionId);
   const exState = cur.exercises[exoId];
   const current = exState.variant || null;
 
   function choose(v) {
     if (v) exState.variant = v;
     else delete exState.variant;
-    // Reset undone sets so they re-fill from the new variant's history
     exState.sets = exState.sets.map(s => s.done ? s : { weight: '', reps: '', done: false });
     setCurrent(cur);
     toast(v ? 'Remplacé par : ' + v : 'Exercice original rétabli');
-    nav({ name: 'session', sessionId });
+    nav({ name: 'session', programId, sessionId });
   }
 
-  return el('div', {},
+  return el('div', null,
     el('div', { class: 'topbar' },
-      el('button', { class: 'back', onclick: () => nav({ name: 'session', sessionId }) }, '‹ Séance'),
+      el('button', { class: 'back', onclick: () => nav({ name: 'session', programId, sessionId }) }, '‹ Séance'),
     ),
     el('div', { class: 'session-header' },
       el('div', { class: 'title' }, 'Remplacer un exercice'),
@@ -926,10 +1303,7 @@ function viewSwap(sessionId, exoId) {
     ),
     el('div', { class: 'section-label' }, 'Choisis un exercice'),
     el('div', { class: 'swap-options' }, [
-      el('button', {
-        class: 'swap-option' + (!current ? ' active' : ''),
-        onclick: () => choose(null),
-      },
+      el('button', { class: 'swap-option' + (!current ? ' active' : ''), onclick: () => choose(null) },
         el('div', { class: 'so-icon' }, '★'),
         el('div', { class: 'so-text' },
           el('div', { class: 'so-name' }, exo.name),
@@ -937,10 +1311,7 @@ function viewSwap(sessionId, exoId) {
         ),
         !current ? el('div', { class: 'so-check' }, '✓') : null,
       ),
-      ...(exo.alts || []).map(alt => el('button', {
-        class: 'swap-option' + (current === alt ? ' active' : ''),
-        onclick: () => choose(alt),
-      },
+      ...(exo.alts || []).map(alt => el('button', { class: 'swap-option' + (current === alt ? ' active' : ''), onclick: () => choose(alt) },
         el('div', { class: 'so-icon' }, '↔'),
         el('div', { class: 'so-text' },
           el('div', { class: 'so-name' }, alt),
@@ -952,6 +1323,40 @@ function viewSwap(sessionId, exoId) {
   );
 }
 
+// Persisted: which exo families have their mistakes section collapsed (keyed by family id)
+function getCollapsedMistakes() { return Store.get('ppl.mistakesCollapsed', {}); }
+function toggleCollapsedMistakes(family) {
+  const c = getCollapsedMistakes();
+  c[family] = !c[family];
+  Store.set('ppl.mistakesCollapsed', c);
+}
+
+function renderMistakes(exo) {
+  const family = EXO_FAMILIES[exo.id];
+  if (!family) return null;
+  const list = MISTAKES[family];
+  if (!list || list.length === 0) return null;
+  const collapsed = getCollapsedMistakes()[family];
+  const formCount = list.filter(m => m.type === 'form').length;
+  const injuryCount = list.filter(m => m.type === 'injury').length;
+  const summary = [
+    formCount ? `${formCount} forme` : null,
+    injuryCount ? `${injuryCount} risque` : null,
+  ].filter(Boolean).join(' · ');
+  return el('div', { class: 'mistakes' + (collapsed ? ' collapsed' : '') },
+    el('div', { class: 'lbl', onclick: () => { toggleCollapsedMistakes(family); render(); } },
+      el('span', null, `⚠ Erreurs communes (${summary})`),
+      el('span', { class: 'chev' }, '▾'),
+    ),
+    el('ul', null,
+      list.map(m => el('li', { class: m.type },
+        el('span', { class: 'ico' }, m.type === 'injury' ? '⛔' : '!'),
+        el('span', null, m.text),
+      )),
+    ),
+  );
+}
+
 function viewLinks() {
   const all = allExercises();
   const yt = getYoutube();
@@ -960,40 +1365,55 @@ function viewLinks() {
     if (val.trim()) cur[id] = val.trim(); else delete cur[id];
     setYoutube(cur);
   }
-  return el('div', {},
+  // group by program
+  const byProgram = {};
+  for (const e of all) { (byProgram[e.programId] ||= []).push(e); }
+
+  return el('div', null,
     el('div', { class: 'topbar' },
       el('button', { class: 'back', onclick: () => nav({ name: 'home' }) }, '‹ Accueil'),
-      el('h2', {}, 'Liens YouTube'),
+      el('h2', null, 'Liens YouTube'),
       el('div', { style: 'width:80px' }),
     ),
     el('div', { class: 'section-label' }, `${Object.keys(yt).length} / ${all.length} liens définis`),
-    el('div', { class: 'links-list' },
-      all.map(e => el('div', { class: 'link-row' },
-        el('div', { class: 'name' }, e.name + ' ', el('span', { style: 'color:var(--text-3);font-weight:400;font-size:12px' }, '— ' + e.sessionName)),
-        el('input', { type: 'url', placeholder: 'https://youtu.be/...', value: yt[e.id] || '',
-          oninput: (ev) => setLink(e.id, ev.target.value) }),
-      )),
-    ),
+    Object.keys(byProgram).map(pid => {
+      const p = PROGRAMS[pid];
+      return el('div', null,
+        el('div', { class: 'section-label', style: 'margin-top:16px' }, p ? p.name : pid),
+        el('div', { class: 'links-list' },
+          byProgram[pid].map(e => el('div', { class: 'link-row' },
+            el('div', { class: 'name' }, e.name, el('span', { style: 'color:var(--text-3);font-weight:400;font-size:12px' }, ' — ' + e.sessionName)),
+            el('input', { type: 'url', placeholder: 'https://youtu.be/...', value: yt[e.id] || '',
+              oninput: (ev) => setLink(e.id, ev.target.value) }),
+          )),
+        ),
+      );
+    }),
   );
 }
 
 function viewHistory() {
   const h = [...getHistory()].reverse();
-  return el('div', {},
+  return el('div', null,
     el('div', { class: 'topbar' },
       el('button', { class: 'back', onclick: () => nav({ name: 'home' }) }, '‹ Accueil'),
-      el('h2', {}, 'Historique'),
+      el('h2', null, 'Historique'),
       el('div', { style: 'width:80px' }),
     ),
     h.length === 0 ? el('div', { class: 'empty' }, 'Aucune séance enregistrée pour l\'instant.') : null,
     h.map((entry, idx) => {
-      const s = SESSIONS[entry.sessionId];
+      const p = PROGRAMS[entry.programId] || PROGRAMS.ppl6;
+      const s = p.sessions[entry.sessionId];
       if (!s) return null;
       return el('div', { class: 'history-day' },
         el('div', { class: 'date' }, frDate(entry.date)),
-        el('div', { class: 'session-name' }, el('span', { class: 'badge ' + badgeClass(s.type), style: 'padding:2px 7px;font-size:10px;border-radius:5px;' }, s.name), '  ', s.subtitle),
+        el('div', { class: 'session-name' },
+          el('span', { class: 'badge ' + badgeClass(s.type), style: 'padding:2px 7px;font-size:10px;border-radius:5px;' }, s.name),
+          el('span', { class: 'prog-tag', style: 'font-size:10px;padding:2px 7px;border-radius:5px;background:var(--card-2);color:var(--text-2);font-weight:600' }, p.short),
+          el('span', null, s.subtitle),
+        ),
         el('div', { class: 'exo-list' },
-          [...s.heavy, ...s.iso].map(exo => {
+          sessionExos(entry.programId, entry.sessionId).map(exo => {
             const ex = entry.exercises[exo.id];
             if (!ex) return null;
             const sets = ex.sets.filter(s => s.done);
@@ -1009,7 +1429,6 @@ function viewHistory() {
         el('button', { class: 'icon-btn', style: 'margin-top:8px;font-size:12px;color:var(--danger-text)', onclick: () => {
           if (confirm('Supprimer cette séance de l\'historique ?')) {
             const hist = getHistory();
-            // entry is from reversed; remove the matching one
             const realIdx = hist.length - 1 - idx;
             hist.splice(realIdx, 1);
             setHistory(hist);
@@ -1028,23 +1447,34 @@ function render() {
   const root = document.getElementById('app');
   root.innerHTML = '';
   let content;
-  switch (view.name) {
-    case 'session': content = viewSession(view.sessionId); break;
-    case 'exo':     content = viewExo(view.sessionId, view.exoId); break;
-    case 'swap':    content = viewSwap(view.sessionId, view.exoId); break;
-    case 'links':   content = viewLinks(); break;
-    case 'history': content = viewHistory(); break;
-    default:        content = viewHome();
+  try {
+    switch (view.name) {
+      case 'session':  content = viewSession(view.programId, view.sessionId); break;
+      case 'exo':      content = viewExo(view.programId, view.sessionId, view.exoId); break;
+      case 'swap':     content = viewSwap(view.programId, view.sessionId, view.exoId); break;
+      case 'programs': content = viewPrograms(); break;
+      case 'links':    content = viewLinks(); break;
+      case 'history':  content = viewHistory(); break;
+      default:         content = viewHome();
+    }
+  } catch (err) {
+    console.error('Render error:', err);
+    content = el('div', { style: 'padding:20px;color:var(--danger-text)' },
+      el('h2', null, 'Erreur d\'affichage'),
+      el('div', { style: 'font-size:12px;margin-top:8px;font-family:monospace;white-space:pre-wrap' }, String(err && err.stack || err)),
+      el('button', { class: 'action-btn', style: 'margin-top:14px', onclick: () => { view = { name: 'home' }; render(); } }, 'Retour à l\'accueil'),
+    );
   }
   root.appendChild(content);
   if (Timer.running) Timer.updateUI();
 }
 
-// On load, if there's a current workout, jump to it
+// Init
 (function init() {
+  migrate();
   const cur = getCurrent();
-  if (cur && SESSIONS[cur.sessionId]) {
-    view = { name: 'session', sessionId: cur.sessionId };
+  if (cur && PROGRAMS[cur.programId] && PROGRAMS[cur.programId].sessions[cur.sessionId]) {
+    view = { name: 'session', programId: cur.programId, sessionId: cur.sessionId };
   }
   render();
 })();
